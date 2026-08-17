@@ -1,0 +1,1967 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Vault Pro</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #4361ee;
+        --secondary: #3a0ca3;
+        --accent: #4895ef;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --success: #4cc9f0;
+        --danger: #e63946;
+        --warning: #f72585;
+        --info: #7209b7;
+        --background: #f0f9ff;
+        --card-bg: #ffffff;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: linear-gradient(135deg, var(--background), #e6f7ff);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        min-height: 100vh;
+        background-image:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(180, 210, 255, 0.2) 0%,
+            transparent 20%
+          ),
+          radial-gradient(
+            circle at 90% 80%,
+            rgba(200, 230, 255, 0.3) 0%,
+            transparent 20%
+          );
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        width: 100%;
+        position: relative;
+      }
+      h1 {
+        color: var(--primary);
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+      .subtitle {
+        color: var(--secondary);
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+      .doodle {
+        position: absolute;
+        font-size: 4rem;
+        opacity: 0.1;
+        z-index: -1;
+      }
+      .doodle-1 {
+        top: 10px;
+        left: 5%;
+        transform: rotate(-15deg);
+      }
+      .doodle-2 {
+        top: 10px;
+        right: 5%;
+        transform: rotate(15deg);
+      }
+      .doodle-3 {
+        bottom: -20px;
+        left: 10%;
+        transform: rotate(10deg);
+      }
+      .doodle-4 {
+        bottom: -20px;
+        right: 10%;
+        transform: rotate(-10deg);
+      }
+      .sidebar {
+        flex: 1;
+        min-width: 300px;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+      }
+      .main-content {
+        flex: 2;
+        min-width: 300px;
+      }
+      .form-section {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+      }
+      .form-section:hover {
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+      }
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--primary);
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--accent);
+        font-size: 1.4rem;
+      }
+      .input-group {
+        margin-bottom: 18px;
+      }
+      label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: 600;
+        color: var(--secondary);
+        font-size: 1rem;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 2px solid #caf0f8;
+        border-radius: 12px;
+        font-size: 14px;
+        transition: all 0.3s;
+        background: #f8f9fa;
+        font-family: inherit;
+      }
+      input:focus,
+      textarea:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+        background: white;
+      }
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+        font-family: "Courier New", monospace;
+        line-height: 1.6;
+      }
+      select {
+        cursor: pointer;
+      }
+      .btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        text-align: center;
+      }
+      .btn:hover {
+        background: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+      }
+      .btn:active {
+        transform: translateY(-1px);
+      }
+      .btn-primary {
+        background: var(--primary);
+      }
+      .btn-primary:hover {
+        background: #3a0ca3;
+      }
+      .btn-success {
+        background: var(--success);
+      }
+      .btn-success:hover {
+        background: #3a86ff;
+      }
+      .btn-danger {
+        background: var(--danger);
+      }
+      .btn-danger:hover {
+        background: #c1121f;
+      }
+      .btn-warning {
+        background: var(--warning);
+      }
+      .btn-info {
+        background: var(--info);
+      }
+      .btn-info:hover {
+        background: #560bad;
+      }
+      .btn-sm {
+        padding: 7px 12px;
+        font-size: 12px;
+        border-radius: 8px;
+        width: auto;
+      }
+      .content-section {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .section-header h2 {
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.6rem;
+      }
+      .controls-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .controls-row input,
+      .controls-row select {
+        width: auto;
+        min-width: 150px;
+        padding: 9px 12px;
+      }
+      .folders-bar {
+        margin-bottom: 18px;
+      }
+      .folders-label {
+        font-weight: 700;
+        color: var(--secondary);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .folder-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .folder-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #f0f4ff;
+        border: 2px solid #c7d2fe;
+        border-radius: 20px;
+        padding: 5px 13px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: var(--secondary);
+      }
+      .folder-chip:hover,
+      .folder-chip.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+      .chip-count {
+        background: rgba(0, 0, 0, 0.12);
+        border-radius: 10px;
+        padding: 1px 6px;
+        font-size: 10px;
+      }
+      .folder-chip.active .chip-count {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .text-blocks {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 22px;
+        margin-top: 8px;
+      }
+      .text-block {
+        background: var(--card-bg);
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border: 2px solid #e9ecef;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+      }
+      .text-block:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+        border-color: var(--accent);
+      }
+      .block-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+        gap: 10px;
+      }
+      .block-title-area {
+        flex: 1;
+        min-width: 0;
+      }
+      .block-title {
+        font-weight: 700;
+        color: var(--secondary);
+        font-size: 1.15rem;
+        word-break: break-word;
+      }
+      .block-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 5px;
+      }
+      .block-folder-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #f0f4ff;
+        border: 1px solid #c7d2fe;
+        border-radius: 10px;
+        padding: 2px 9px;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--secondary);
+      }
+      .block-shortcut-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #fff0f8;
+        border: 1px solid #fbb3d0;
+        border-radius: 10px;
+        padding: 2px 9px;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--warning);
+      }
+      .block-date {
+        font-size: 10px;
+        color: #adb5bd;
+        margin-top: 4px;
+      }
+      .block-actions {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .action-btn {
+        background: none;
+        border: none;
+        color: var(--dark);
+        cursor: pointer;
+        font-size: 15px;
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+      .action-btn:hover {
+        background: #f8f9fa;
+        transform: scale(1.1);
+      }
+      .edit-btn:hover {
+        color: var(--accent);
+        background: rgba(72, 149, 239, 0.1);
+      }
+      .replace-btn:hover {
+        color: var(--info);
+        background: rgba(114, 9, 183, 0.1);
+      }
+      .delete-btn:hover {
+        color: var(--danger);
+        background: rgba(230, 57, 70, 0.1);
+      }
+      .block-content {
+        flex-grow: 1;
+        margin-bottom: 14px;
+      }
+      .preview {
+        color: #495057;
+        white-space: pre-wrap;
+        max-height: 90px;
+        overflow: hidden;
+        position: relative;
+        line-height: 1.5;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 10px;
+        border-left: 3px solid var(--accent);
+      }
+      .preview::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 25px;
+        background: linear-gradient(to bottom, transparent, var(--card-bg));
+      }
+      .block-footer {
+        margin-top: auto;
+      }
+      .copy-btn {
+        width: 100%;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow: auto;
+      }
+      .modal-content {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 680px;
+        max-height: 90vh;
+        overflow: hidden;
+        animation: modalAppear 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      @keyframes modalAppear {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .modal-header {
+        background: var(--primary);
+        color: white;
+        padding: 16px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .modal-header h3 {
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        flex-shrink: 0;
+      }
+      .close-btn:hover {
+        transform: rotate(90deg);
+      }
+      .modal-body {
+        padding: 22px;
+        overflow-y: auto;
+        flex-grow: 1;
+      }
+      .modal-footer {
+        padding: 16px 22px;
+        background: #f8f9fa;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        flex-shrink: 0;
+        border-top: 1px solid #e9ecef;
+      }
+      .modal-footer .btn {
+        width: auto;
+        padding: 10px 20px;
+        min-width: 100px;
+      }
+      .notification {
+        position: fixed;
+        top: 22px;
+        right: 22px;
+        padding: 14px 22px;
+        border-radius: 12px;
+        background: var(--success);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transform: translateX(200%);
+        transition: transform 0.4s ease-out;
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+      }
+      .notification.show {
+        transform: translateX(0);
+      }
+      .notification.error {
+        background: var(--danger);
+      }
+      .notification.warning {
+        background: var(--warning);
+      }
+      .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #6c757d;
+        grid-column: 1 / -1;
+      }
+      .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 18px;
+        color: #dee2e6;
+        display: block;
+      }
+      .empty-state h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: var(--secondary);
+      }
+      .cloud-icon {
+        color: white;
+        background: #4285f4;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 7px;
+      }
+      footer {
+        text-align: center;
+        padding: 22px;
+        color: #6c757d;
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+        max-width: 800px;
+        margin: 35px auto 0;
+      }
+      .replace-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .replace-row {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        background: #f8f9fa;
+        padding: 13px;
+        border-radius: 10px;
+        border-left: 3px solid var(--info);
+      }
+      .replace-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        color: var(--info);
+        font-size: 0.9rem;
+      }
+      .preview-container {
+        background: #f8f9fa;
+        padding: 13px;
+        border-radius: 10px;
+        border-left: 3px solid var(--info);
+      }
+      .preview-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        color: var(--info);
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+      .text-preview {
+        background: white;
+        padding: 11px;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+        max-height: 160px;
+        overflow-y: auto;
+        font-family: "Courier New", monospace;
+        white-space: pre-wrap;
+        line-height: 1.5;
+        font-size: 12px;
+      }
+      .backup-controls {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .shortcut-capture {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .shortcut-capture input {
+        flex: 1;
+        cursor: pointer;
+      }
+      .shortcut-note {
+        background: #fff9e6;
+        border: 1px solid #ffd54f;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 12px;
+        color: #7a5c00;
+        line-height: 1.5;
+        margin-top: 7px;
+      }
+      .shortcut-note strong {
+        display: block;
+        margin-bottom: 3px;
+      }
+      .folder-manage-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 9px 13px;
+        border: 1px solid #e9ecef;
+      }
+      .folder-manage-row span {
+        font-weight: 600;
+        color: var(--secondary);
+        font-size: 0.9rem;
+      }
+      .row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .guide-box {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 11px 14px;
+        border-left: 3px solid var(--accent);
+        font-size: 0.83rem;
+        line-height: 1.65;
+        margin-bottom: 10px;
+      }
+      .guide-box strong {
+        display: block;
+        color: var(--primary);
+        margin-bottom: 3px;
+      }
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+        .sidebar {
+          position: static;
+          max-width: 100%;
+        }
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+        .modal-content {
+          max-width: 95%;
+        }
+        .modal-footer {
+          flex-direction: column;
+        }
+        .modal-footer .btn {
+          width: 100%;
+        }
+        .row-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .text-blocks {
+          grid-template-columns: 1fr;
+        }
+      }
+      #auth-overlay {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, var(--background), #e6f7ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3000;
+        padding: 20px;
+      }
+      #auth-box {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        width: 100%;
+        max-width: 360px;
+      }
+      #auth-box h2 {
+        color: var(--primary);
+        margin-bottom: 6px;
+        text-align: center;
+      }
+      #auth-box p.tagline {
+        color: var(--secondary);
+        text-align: center;
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+      }
+      #auth-box input {
+        margin-bottom: 12px;
+      }
+      #auth-error {
+        color: var(--danger);
+        font-size: 0.85rem;
+        margin-top: 6px;
+        min-height: 18px;
+      }
+      #auth-buttons {
+        display: flex;
+        gap: 10px;
+      }
+      #logout-btn {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: auto;
+        padding: 8px 14px;
+        font-size: 12px;
+      }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <div id="auth-overlay">
+      <div id="auth-box">
+        <h2><i class="fas fa-lock"></i> Text Vault Pro</h2>
+        <p class="tagline">Sign in to access your texts from any device</p>
+        <input type="email" id="auth-email" placeholder="Email address" />
+        <input
+          type="password"
+          id="auth-password"
+          placeholder="Password (min 6 characters)"
+        />
+        <div id="auth-buttons">
+          <button class="btn btn-primary" id="auth-login-btn">
+            <i class="fas fa-sign-in-alt"></i> Log In
+          </button>
+          <button class="btn" id="auth-signup-btn">
+            <i class="fas fa-user-plus"></i> Sign Up
+          </button>
+        </div>
+        <div id="auth-error"></div>
+      </div>
+    </div>
+    <div id="app-root" style="display: none">
+      <header style="position: relative">
+        <button id="logout-btn" class="btn btn-danger">
+          <i class="fas fa-sign-out-alt"></i> Log Out
+        </button>
+        <div class="doodle doodle-1">📋</div>
+        <div class="doodle doodle-2">📝</div>
+        <h1><i class="fas fa-lock"></i> Text Vault Pro</h1>
+        <p class="subtitle">
+          Store, organize, and instantly copy your important texts — with
+          folders, shortcuts, and smart sorting
+        </p>
+        <div class="doodle doodle-3">🔒</div>
+        <div class="doodle doodle-4">💾</div>
+      </header>
+
+      <div class="container">
+        <div class="sidebar">
+          <!-- ADD TEXT -->
+          <div class="form-section">
+            <div class="section-title">
+              <i class="fas fa-plus-circle"></i>
+              <h3>Add New Text</h3>
+            </div>
+            <div class="input-group">
+              <label for="nickname"><i class="fas fa-tag"></i> Nickname</label>
+              <input
+                type="text"
+                id="nickname"
+                placeholder="e.g., WiFi Password, Email Signature"
+              />
+            </div>
+            <div class="input-group">
+              <label for="content"
+                ><i class="fas fa-align-left"></i> Your Text</label
+              >
+              <textarea
+                id="content"
+                placeholder="Paste your important text here..."
+              ></textarea>
+            </div>
+            <div class="input-group">
+              <label for="folder-select"
+                ><i class="fas fa-folder"></i> Folder
+                <span style="font-weight: 400; font-size: 0.85em"
+                  >(optional)</span
+                ></label
+              >
+              <select id="folder-select">
+                <option value="">— No Folder —</option>
+              </select>
+            </div>
+            <div class="input-group" style="margin-bottom: 8px">
+              <label
+                ><i class="fas fa-keyboard"></i> Shortcut Key
+                <span style="font-weight: 400; font-size: 0.85em"
+                  >(optional)</span
+                ></label
+              >
+              <div class="shortcut-capture">
+                <input
+                  type="text"
+                  id="shortcut-input"
+                  placeholder="Click here, then press keys..."
+                  readonly
+                />
+                <button
+                  class="btn btn-sm btn-danger"
+                  id="clear-shortcut-btn"
+                  title="Clear shortcut"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="shortcut-note">
+                <strong>⌨️ Shortcut works on this page</strong>
+                Press your shortcut while this tab is open &amp; focused on a
+                non-input area to auto-copy. See <em>Global Shortcuts</em> below
+                for system-wide use.
+              </div>
+            </div>
+            <button id="save-btn" class="btn btn-primary">
+              <i class="fas fa-save"></i> Save Text
+            </button>
+          </div>
+
+          <!-- FOLDERS -->
+          <div class="form-section">
+            <div class="section-title">
+              <i class="fas fa-folder-plus"></i>
+              <h3>Manage Folders</h3>
+            </div>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px">
+              <input
+                type="text"
+                id="new-folder-name"
+                placeholder="New folder name..."
+                style="flex: 1"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                id="create-folder-btn"
+                style="width: auto"
+              >
+                <i class="fas fa-plus"></i> Add
+              </button>
+            </div>
+            <div
+              id="folder-list-sidebar"
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+                max-height: 200px;
+                overflow-y: auto;
+              "
+            ></div>
+          </div>
+
+          <!-- BACKUP -->
+          <div class="form-section">
+            <div class="section-title">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <h3>Backup &amp; Restore</h3>
+            </div>
+            <p
+              style="
+                margin-bottom: 14px;
+                color: #495057;
+                line-height: 1.6;
+                font-size: 0.9rem;
+              "
+            >
+              Download a backup and save it anywhere safe (Google Drive, USB,
+              etc).
+            </p>
+            <button
+              id="backup-btn"
+              class="btn btn-success"
+              style="margin-bottom: 10px"
+            >
+              <i class="fab fa-google-drive cloud-icon"></i> Backup to Drive
+            </button>
+            <button id="restore-btn" class="btn btn-info">
+              <i class="fas fa-file-import"></i> Restore from Backup
+            </button>
+          </div>
+
+          <!-- GLOBAL SHORTCUTS GUIDE -->
+          <div class="form-section">
+            <div class="section-title">
+              <i class="fas fa-globe"></i>
+              <h3>Global Shortcuts</h3>
+            </div>
+            <p
+              style="
+                color: #495057;
+                font-size: 0.88rem;
+                line-height: 1.6;
+                margin-bottom: 12px;
+              "
+            >
+              To use shortcuts <strong>anywhere on your PC</strong>, use one of
+              these free tools:
+            </p>
+            <div class="guide-box" style="border-left-color: #0078d4">
+              <strong>🪟 Windows — AutoHotkey</strong>Download free from
+              <em>autohotkey.com</em>. Export your shortcuts guide below and
+              follow the included AHK script.
+            </div>
+            <div class="guide-box" style="border-left-color: #0ea5e9">
+              <strong>🍎 Mac — Raycast or Espanso</strong>Both support text
+              snippets with trigger keys. Free and easy.
+            </div>
+            <div class="guide-box" style="border-left-color: var(--info)">
+              <strong>🐧 Linux — Espanso</strong>Cross-platform text expander at
+              <em>espanso.org</em>.
+            </div>
+            <button id="export-shortcuts-btn" class="btn btn-primary">
+              <i class="fas fa-download"></i> Export Shortcuts &amp; AHK Script
+            </button>
+          </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+          <div class="content-section">
+            <div class="section-header">
+              <h2><i class="fas fa-sticky-note"></i> Saved Texts</h2>
+              <div class="controls-row">
+                <input
+                  type="text"
+                  id="search-text"
+                  placeholder="🔍 Search..."
+                />
+                <select id="sort-select">
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="az">A → Z</option>
+                  <option value="za">Z → A</option>
+                  <option value="longest">Longest First</option>
+                  <option value="shortest">Shortest First</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="folders-bar" id="folders-bar" style="display: none">
+              <div class="folders-label">
+                <i class="fas fa-folder-open"></i> Folders
+              </div>
+              <div class="folder-chips" id="folder-chips"></div>
+            </div>
+
+            <div class="text-blocks" id="text-blocks">
+              <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h3>Your Text Vault is Empty</h3>
+                <p>
+                  Start by adding your first text using the form on the left
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDIT MODAL -->
+      <div class="modal" id="edit-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-edit"></i> Edit Text</h3>
+            <button class="close-btn">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <label for="edit-nickname"
+                ><i class="fas fa-tag"></i> Nickname</label
+              ><input type="text" id="edit-nickname" />
+            </div>
+            <div class="input-group">
+              <label for="edit-content"
+                ><i class="fas fa-align-left"></i> Content</label
+              ><textarea id="edit-content" rows="6"></textarea>
+            </div>
+            <div class="row-2">
+              <div class="input-group" style="margin-bottom: 0">
+                <label for="edit-folder"
+                  ><i class="fas fa-folder"></i> Folder</label
+                ><select id="edit-folder">
+                  <option value="">— No Folder —</option>
+                </select>
+              </div>
+              <div class="input-group" style="margin-bottom: 0">
+                <label><i class="fas fa-keyboard"></i> Shortcut</label>
+                <div class="shortcut-capture">
+                  <input
+                    type="text"
+                    id="edit-shortcut-input"
+                    placeholder="Click &amp; press keys..."
+                    readonly
+                    style="flex: 1"
+                  />
+                  <button
+                    class="btn btn-sm btn-danger"
+                    id="edit-clear-shortcut-btn"
+                    title="Clear"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger cancel-edit-btn">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+            <button class="btn btn-success" id="save-edit-btn">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPLACE MODAL -->
+      <div class="modal" id="replace-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-exchange-alt"></i> Replace Text</h3>
+            <button class="close-btn">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="replace-form">
+              <div class="replace-row">
+                <div class="replace-label">
+                  <i class="fas fa-search"></i><span>Replace this text</span>
+                </div>
+                <input
+                  type="text"
+                  id="replace-this"
+                  placeholder="Text to replace"
+                />
+              </div>
+              <div class="replace-row">
+                <div class="replace-label">
+                  <i class="fas fa-pencil-alt"></i><span>With this text</span>
+                </div>
+                <input
+                  type="text"
+                  id="with-this"
+                  placeholder="Replacement text"
+                />
+              </div>
+              <div class="preview-container">
+                <div class="preview-label">
+                  <i class="fas fa-file-alt"></i
+                  ><span>Current Text Preview</span>
+                </div>
+                <div class="text-preview" id="replace-preview"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger cancel-replace-btn">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+            <button class="btn btn-success" id="execute-replace-btn">
+              <i class="fas fa-check-circle"></i> Replace Text
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i
+        ><span id="notification-text">Done!</span>
+      </div>
+
+      <footer>
+        <p>
+          <i class="fas fa-cloud"></i> Your data is securely synced to your
+          account and accessible from any device.
+        </p>
+        <p style="margin-top: 8px">
+          <i class="fas fa-keyboard"></i> Tip: Press your assigned shortcut
+          while this page is open (outside any input) to instantly copy that
+          text.
+        </p>
+      </footer>
+    </div>
+    <!-- /#app-root -->
+
+    <script>
+      // ── FIREBASE SETUP ──────────────────────────────────────────────────────
+      // PASTE YOUR OWN CONFIG HERE (from Firebase Console > Project Settings)
+      const firebaseConfig = {
+        apiKey: "AIzaSyDJL_l08ArZ_F3pZJwAt0qWfCPorAhypQk",
+        authDomain: "text-vault-6603c.firebaseapp.com",
+        projectId: "text-vault-6603c",
+        storageBucket: "text-vault-6603c.firebasestorage.app",
+        messagingSenderId: "560977028988",
+        appId: "1:560977028988:web:939c4766f42ba1d80b66f9",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+      let currentUser = null;
+
+      function showAuthError(msg) {
+        document.getElementById("auth-error").textContent = msg;
+      }
+
+      document
+        .getElementById("auth-login-btn")
+        .addEventListener("click", function () {
+          const email = document.getElementById("auth-email").value.trim();
+          const pw = document.getElementById("auth-password").value;
+          showAuthError("");
+          auth.signInWithEmailAndPassword(email, pw).catch(function (e) {
+            showAuthError(e.message);
+          });
+        });
+      document
+        .getElementById("auth-signup-btn")
+        .addEventListener("click", function () {
+          const email = document.getElementById("auth-email").value.trim();
+          const pw = document.getElementById("auth-password").value;
+          showAuthError("");
+          auth.createUserWithEmailAndPassword(email, pw).catch(function (e) {
+            showAuthError(e.message);
+          });
+        });
+      document
+        .getElementById("logout-btn")
+        .addEventListener("click", function () {
+          auth.signOut();
+        });
+
+      auth.onAuthStateChanged(function (user) {
+        if (user) {
+          currentUser = user;
+          document.getElementById("auth-overlay").style.display = "none";
+          document.getElementById("app-root").style.display = "";
+          loadDataAndInit();
+        } else {
+          currentUser = null;
+          document.getElementById("auth-overlay").style.display = "flex";
+          document.getElementById("app-root").style.display = "none";
+        }
+      });
+
+      let texts = [];
+      let folders = [];
+
+      function loadDataAndInit() {
+        db.collection("vaults")
+          .doc(currentUser.uid)
+          .get()
+          .then(function (doc) {
+            const data = doc.exists ? doc.data() : {};
+            texts = data.texts || [];
+            folders = data.folders || [];
+
+            // Migrate old entries
+            texts = texts.map(function (t) {
+              return {
+                nickname: t.nickname || "",
+                content: t.content || "",
+                folder: t.folder || "",
+                shortcut: t.shortcut || "",
+                date: t.date || Date.now(),
+              };
+            });
+
+            renderFolderSelects();
+            renderFolderChips();
+            renderFolderSidebar();
+            displayTexts();
+          })
+          .catch(function (e) {
+            showNotification("Could not load your data: " + e.message, "error");
+          });
+      }
+
+      let currentEditIndex = null;
+      let currentReplaceIndex = null;
+      let activeFolder = "all";
+      let captureTarget = null;
+
+      const textBlocksContainer = document.getElementById("text-blocks");
+      const notification = document.getElementById("notification");
+      const notificationText = document.getElementById("notification-text");
+      const searchInput = document.getElementById("search-text");
+      const sortSelect = document.getElementById("sort-select");
+      const folderSelect = document.getElementById("folder-select");
+      const editFolderSelect = document.getElementById("edit-folder");
+      const foldersBar = document.getElementById("folders-bar");
+      const folderChips = document.getElementById("folder-chips");
+      const folderListSidebar = document.getElementById("folder-list-sidebar");
+
+      function persist() {
+        if (!currentUser) return;
+        db.collection("vaults")
+          .doc(currentUser.uid)
+          .set({ texts: texts, folders: folders })
+          .catch(function (e) {
+            showNotification("Sync failed: " + e.message, "error");
+          });
+      }
+
+      // ── FOLDERS ──────────────────────────────────────────────────────────────
+      function renderFolderSelects() {
+        [folderSelect, editFolderSelect].forEach((sel) => {
+          const val = sel.value;
+          sel.innerHTML = '<option value="">— No Folder —</option>';
+          folders.forEach((f) => {
+            const o = document.createElement("option");
+            o.value = f;
+            o.textContent = f;
+            sel.appendChild(o);
+          });
+          sel.value = val;
+        });
+      }
+
+      function renderFolderChips() {
+        if (folders.length === 0) {
+          foldersBar.style.display = "none";
+          return;
+        }
+        foldersBar.style.display = "";
+        folderChips.innerHTML = "";
+
+        const allChip = document.createElement("div");
+        allChip.className =
+          "folder-chip" + (activeFolder === "all" ? " active" : "");
+        allChip.innerHTML =
+          '<i class="fas fa-th-large"></i> All <span class="chip-count">' +
+          texts.length +
+          "</span>";
+        allChip.addEventListener("click", () => {
+          activeFolder = "all";
+          renderFolderChips();
+          displayTexts();
+        });
+        folderChips.appendChild(allChip);
+
+        folders.forEach((f) => {
+          const count = texts.filter((t) => t.folder === f).length;
+          const chip = document.createElement("div");
+          chip.className =
+            "folder-chip" + (activeFolder === f ? " active" : "");
+          chip.innerHTML =
+            '<i class="fas fa-folder"></i> ' +
+            escapeHtml(f) +
+            ' <span class="chip-count">' +
+            count +
+            "</span>";
+          chip.addEventListener("click", () => {
+            activeFolder = f;
+            renderFolderChips();
+            displayTexts();
+          });
+          folderChips.appendChild(chip);
+        });
+      }
+
+      function renderFolderSidebar() {
+        folderListSidebar.innerHTML = "";
+        if (folders.length === 0) {
+          folderListSidebar.innerHTML =
+            '<div style="color:#adb5bd;font-size:0.85rem;text-align:center;padding:8px;">No folders yet</div>';
+          return;
+        }
+        folders.forEach((f, i) => {
+          const row = document.createElement("div");
+          row.className = "folder-manage-row";
+          row.innerHTML =
+            '<span><i class="fas fa-folder" style="color:var(--primary);margin-right:7px;"></i>' +
+            escapeHtml(f) +
+            "</span>" +
+            '<button class="btn btn-sm btn-danger" style="width:auto;" onclick="deleteFolder(' +
+            i +
+            ')"><i class="fas fa-trash"></i></button>';
+          folderListSidebar.appendChild(row);
+        });
+      }
+
+      function createFolder() {
+        const name = document.getElementById("new-folder-name").value.trim();
+        if (!name) {
+          showNotification("Enter a folder name!", "warning");
+          return;
+        }
+        if (folders.includes(name)) {
+          showNotification("Folder already exists!", "warning");
+          return;
+        }
+        folders.push(name);
+        persist();
+        document.getElementById("new-folder-name").value = "";
+        renderFolderSelects();
+        renderFolderChips();
+        renderFolderSidebar();
+        showNotification('Folder "' + name + '" created!');
+      }
+
+      function deleteFolder(i) {
+        const name = folders[i];
+        if (
+          !confirm(
+            'Delete folder "' +
+              name +
+              '"? Texts inside will become unfoldered.',
+          )
+        )
+          return;
+        texts = texts.map((t) =>
+          t.folder === name ? Object.assign({}, t, { folder: "" }) : t,
+        );
+        folders.splice(i, 1);
+        if (activeFolder === name) activeFolder = "all";
+        persist();
+        renderFolderSelects();
+        renderFolderChips();
+        renderFolderSidebar();
+        displayTexts();
+        showNotification('Folder "' + name + '" deleted');
+      }
+
+      document
+        .getElementById("create-folder-btn")
+        .addEventListener("click", createFolder);
+      document
+        .getElementById("new-folder-name")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter") createFolder();
+        });
+
+      // ── SHORTCUT CAPTURE ────────────────────────────────────────────────────
+      function formatShortcut(e) {
+        const parts = [];
+        if (e.ctrlKey) parts.push("Ctrl");
+        if (e.altKey) parts.push("Alt");
+        if (e.shiftKey) parts.push("Shift");
+        if (e.metaKey) parts.push("Meta");
+        const key = e.key;
+        if (!["Control", "Alt", "Shift", "Meta"].includes(key)) {
+          parts.push(key.length === 1 ? key.toUpperCase() : key);
+        }
+        return parts.length >= 2 ? parts.join("+") : "";
+      }
+
+      function bindShortcutInput(inputEl, clearBtn) {
+        inputEl.addEventListener("focus", function () {
+          captureTarget = inputEl;
+          inputEl.placeholder = "Press your shortcut now...";
+        });
+        inputEl.addEventListener("blur", function () {
+          captureTarget = null;
+          inputEl.placeholder = "Click & press keys...";
+        });
+        inputEl.addEventListener("keydown", function (e) {
+          e.preventDefault();
+          const s = formatShortcut(e);
+          if (s) inputEl.value = s;
+        });
+        clearBtn.addEventListener("click", function () {
+          inputEl.value = "";
+        });
+      }
+
+      bindShortcutInput(
+        document.getElementById("shortcut-input"),
+        document.getElementById("clear-shortcut-btn"),
+      );
+      bindShortcutInput(
+        document.getElementById("edit-shortcut-input"),
+        document.getElementById("edit-clear-shortcut-btn"),
+      );
+
+      // ── GLOBAL SHORTCUT LISTENER ────────────────────────────────────────────
+      document.addEventListener("keydown", function (e) {
+        if (captureTarget) return;
+        const tag = document.activeElement
+          ? document.activeElement.tagName
+          : "";
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(tag)) return;
+        const s = formatShortcut(e);
+        if (!s) return;
+        const match = texts.find(function (t) {
+          return t.shortcut === s;
+        });
+        if (match) {
+          e.preventDefault();
+          navigator.clipboard.writeText(match.content).then(function () {
+            showNotification('⌨️ Copied "' + match.nickname + '" via ' + s);
+          });
+        }
+      });
+
+      // ── SAVE ────────────────────────────────────────────────────────────────
+      function saveText() {
+        const nickname = document.getElementById("nickname").value.trim();
+        const content = document.getElementById("content").value.trim();
+        const folder = folderSelect.value;
+        const shortcut = document.getElementById("shortcut-input").value.trim();
+
+        if (!nickname || !content) {
+          showNotification("Please fill both fields!", "warning");
+          return;
+        }
+        if (shortcut) {
+          const conflict = texts.find(function (t) {
+            return t.shortcut === shortcut;
+          });
+          if (conflict) {
+            showNotification(
+              'Shortcut "' +
+                shortcut +
+                '" already used by "' +
+                conflict.nickname +
+                '"!',
+              "warning",
+            );
+            return;
+          }
+        }
+
+        texts.push({
+          nickname: nickname,
+          content: content,
+          folder: folder,
+          shortcut: shortcut,
+          date: Date.now(),
+        });
+        persist();
+        document.getElementById("nickname").value = "";
+        document.getElementById("content").value = "";
+        document.getElementById("shortcut-input").value = "";
+        folderSelect.value = "";
+        renderFolderChips();
+        displayTexts();
+        showNotification("Text saved successfully!");
+      }
+
+      // ── SORT / FILTER ───────────────────────────────────────────────────────
+      function getFilteredSorted() {
+        const term = searchInput.value.toLowerCase();
+        const sortBy = sortSelect.value;
+        let withIdx = texts.map(function (t, i) {
+          return Object.assign({}, t, { _i: i });
+        });
+        withIdx = withIdx.filter(function (t) {
+          const ms =
+            t.nickname.toLowerCase().includes(term) ||
+            t.content.toLowerCase().includes(term);
+          const mf = activeFolder === "all" || t.folder === activeFolder;
+          return ms && mf;
+        });
+        withIdx.sort(function (a, b) {
+          switch (sortBy) {
+            case "newest":
+              return b.date - a.date;
+            case "oldest":
+              return a.date - b.date;
+            case "az":
+              return a.nickname.localeCompare(b.nickname);
+            case "za":
+              return b.nickname.localeCompare(a.nickname);
+            case "longest":
+              return b.content.length - a.content.length;
+            case "shortest":
+              return a.content.length - b.content.length;
+          }
+          return 0;
+        });
+        return withIdx;
+      }
+
+      // ── DISPLAY ─────────────────────────────────────────────────────────────
+      function displayTexts() {
+        if (texts.length === 0) {
+          textBlocksContainer.innerHTML =
+            '<div class="empty-state"><i class="fas fa-inbox"></i><h3>Your Text Vault is Empty</h3><p>Start by adding your first text using the form on the left</p></div>';
+          return;
+        }
+        textBlocksContainer.innerHTML = "";
+        const items = getFilteredSorted();
+        if (items.length === 0) {
+          textBlocksContainer.innerHTML =
+            '<div class="empty-state"><i class="fas fa-search"></i><h3>No Matching Texts Found</h3><p>Try a different search term or folder</p></div>';
+          return;
+        }
+
+        items.forEach(function (text) {
+          const idx = text._i;
+          let preview = text.content;
+          const lines = text.content.split("\n");
+          if (lines.length > 3)
+            preview = lines.slice(0, 3).join("\n") + "\n...";
+          else if (text.content.length > 150)
+            preview = text.content.substring(0, 150) + "...";
+
+          const dateStr = new Date(text.date || Date.now()).toLocaleDateString(
+            "en-IN",
+            { day: "numeric", month: "short", year: "numeric" },
+          );
+          const folderTag = text.folder
+            ? '<span class="block-folder-tag"><i class="fas fa-folder"></i> ' +
+              escapeHtml(text.folder) +
+              "</span>"
+            : "";
+          const shortcutTag = text.shortcut
+            ? '<span class="block-shortcut-tag"><i class="fas fa-keyboard"></i> ' +
+              escapeHtml(text.shortcut) +
+              "</span>"
+            : "";
+
+          const block = document.createElement("div");
+          block.className = "text-block";
+          block.innerHTML =
+            '<div class="block-header">' +
+            '<div class="block-title-area">' +
+            '<div class="block-title">' +
+            escapeHtml(text.nickname) +
+            "</div>" +
+            '<div class="block-meta">' +
+            folderTag +
+            shortcutTag +
+            "</div>" +
+            '<div class="block-date"><i class="fas fa-clock" style="margin-right:3px;"></i>' +
+            dateStr +
+            "</div>" +
+            "</div>" +
+            '<div class="block-actions">' +
+            '<button class="action-btn edit-btn"    data-index="' +
+            idx +
+            '" title="Edit"><i class="fas fa-edit"></i></button>' +
+            '<button class="action-btn replace-btn" data-index="' +
+            idx +
+            '" title="Replace Text"><i class="fas fa-exchange-alt"></i></button>' +
+            '<button class="action-btn delete-btn"  data-index="' +
+            idx +
+            '" title="Delete"><i class="fas fa-trash"></i></button>' +
+            "</div>" +
+            "</div>" +
+            '<div class="block-content"><div class="preview">' +
+            escapeHtml(preview) +
+            "</div></div>" +
+            '<div class="block-footer"><button class="btn copy-btn" data-index="' +
+            idx +
+            '"><i class="fas fa-copy"></i> Copy Text</button></div>';
+          textBlocksContainer.appendChild(block);
+        });
+
+        document.querySelectorAll(".edit-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            openEditModal(+this.dataset.index);
+          });
+        });
+        document.querySelectorAll(".replace-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            openReplaceModal(+this.dataset.index);
+          });
+        });
+        document.querySelectorAll(".delete-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            deleteText(+this.dataset.index);
+          });
+        });
+        document.querySelectorAll(".copy-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            copyText(+this.dataset.index);
+          });
+        });
+      }
+
+      // ── EDIT ────────────────────────────────────────────────────────────────
+      function openEditModal(index) {
+        currentEditIndex = index;
+        document.getElementById("edit-nickname").value = texts[index].nickname;
+        document.getElementById("edit-content").value = texts[index].content;
+        document.getElementById("edit-shortcut-input").value =
+          texts[index].shortcut || "";
+        renderFolderSelects();
+        document.getElementById("edit-folder").value =
+          texts[index].folder || "";
+        document.getElementById("edit-modal").style.display = "flex";
+      }
+
+      function saveEdit() {
+        if (currentEditIndex === null) return;
+        const nn = document.getElementById("edit-nickname").value.trim();
+        const nc = document.getElementById("edit-content").value.trim();
+        const nf = document.getElementById("edit-folder").value;
+        const ns = document.getElementById("edit-shortcut-input").value.trim();
+        if (!nn || !nc) {
+          showNotification("Both fields are required!", "warning");
+          return;
+        }
+        if (ns) {
+          const conflict = texts.find(function (t, i) {
+            return t.shortcut === ns && i !== currentEditIndex;
+          });
+          if (conflict) {
+            showNotification(
+              'Shortcut "' +
+                ns +
+                '" already used by "' +
+                conflict.nickname +
+                '"!',
+              "warning",
+            );
+            return;
+          }
+        }
+        texts[currentEditIndex] = Object.assign({}, texts[currentEditIndex], {
+          nickname: nn,
+          content: nc,
+          folder: nf,
+          shortcut: ns,
+        });
+        persist();
+        closeModal("edit-modal");
+        renderFolderChips();
+        displayTexts();
+        showNotification("Text updated successfully!");
+      }
+
+      // ── REPLACE ─────────────────────────────────────────────────────────────
+      function openReplaceModal(index) {
+        currentReplaceIndex = index;
+        document.getElementById("replace-this").value = "";
+        document.getElementById("with-this").value = "";
+        document.getElementById("replace-preview").textContent =
+          texts[index].content;
+        document.getElementById("replace-modal").style.display = "flex";
+      }
+
+      function executeReplace() {
+        if (currentReplaceIndex === null) return;
+        const rt = document.getElementById("replace-this").value;
+        const wt = document.getElementById("with-this").value;
+        if (!rt) {
+          showNotification("Please enter text to replace!", "warning");
+          return;
+        }
+        const escaped = rt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        texts[currentReplaceIndex].content = texts[
+          currentReplaceIndex
+        ].content.replace(new RegExp(escaped, "g"), wt);
+        persist();
+        closeModal("replace-modal");
+        displayTexts();
+        showNotification("Text replaced successfully!");
+      }
+
+      // ── DELETE / COPY ───────────────────────────────────────────────────────
+      function deleteText(index) {
+        if (confirm('Delete "' + texts[index].nickname + '"?')) {
+          texts.splice(index, 1);
+          persist();
+          renderFolderChips();
+          displayTexts();
+          showNotification("Text deleted");
+        }
+      }
+
+      function copyText(index) {
+        navigator.clipboard.writeText(texts[index].content);
+        showNotification('Copied "' + texts[index].nickname + '"!');
+      }
+
+      // ── BACKUP / RESTORE ────────────────────────────────────────────────────
+      function backupToDrive() {
+        const data = JSON.stringify({ texts: texts, folders: folders });
+        const blob = new Blob([data], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        const ts = new Date()
+          .toISOString()
+          .slice(0, 16)
+          .replace("T", "_")
+          .replace(":", "-");
+        a.download = "TextVault-Backup-" + ts + ".json";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showNotification("Backup downloaded!");
+        }, 100);
+      }
+
+      function restoreFromDrive() {
+        if (
+          !confirm(
+            "Restore will replace your current texts and folders. Continue?",
+          )
+        )
+          return;
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json";
+        input.onchange = function (e) {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = function (ev) {
+            try {
+              const parsed = JSON.parse(ev.target.result);
+              if (Array.isArray(parsed)) {
+                texts = parsed;
+                folders = [];
+              } else {
+                texts = parsed.texts || [];
+                folders = parsed.folders || [];
+              }
+              texts = texts.map(function (t) {
+                return Object.assign(
+                  { date: Date.now(), folder: "", shortcut: "" },
+                  t,
+                );
+              });
+              persist();
+              renderFolderSelects();
+              renderFolderChips();
+              renderFolderSidebar();
+              displayTexts();
+              showNotification("Backup restored successfully!");
+            } catch (err) {
+              showNotification("Invalid backup file!", "error");
+            }
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+      }
+
+      // ── EXPORT SHORTCUTS ────────────────────────────────────────────────────
+      function exportShortcutsGuide() {
+        const ws = texts.filter(function (t) {
+          return t.shortcut;
+        });
+        if (ws.length === 0) {
+          showNotification("No shortcuts assigned yet!", "warning");
+          return;
+        }
+
+        let out = "TEXT VAULT PRO — SHORTCUTS REFERENCE\n";
+        out += "Generated: " + new Date().toLocaleString() + "\n";
+        out += "=".repeat(50) + "\n\n";
+        out += "BROWSER SHORTCUTS (page must be open & focused)\n";
+        out += "-".repeat(40) + "\n";
+        ws.forEach(function (t) {
+          out += "[" + t.shortcut + "]  =>  " + t.nickname + "\n";
+          out +=
+            "     " +
+            t.content.substring(0, 80) +
+            (t.content.length > 80 ? "..." : "") +
+            "\n\n";
+        });
+
+        out += "\nAUTOHOTKEY SCRIPT (Windows)\n";
+        out += "Save as TextVault.ahk and double-click to run\n";
+        out += "-".repeat(40) + "\n#Persistent\n#NoEnv\n\n";
+        ws.forEach(function (t) {
+          let ahk = t.shortcut;
+          ahk = ahk
+            .replace("Alt+", "!")
+            .replace("Ctrl+", "^")
+            .replace("Shift+", "+")
+            .replace("Meta+", "#");
+          const esc = t.content
+            .replace(/`/g, "``")
+            .replace(/\n/g, "`n")
+            .replace(/"/g, '`"');
+          out +=
+            "; " +
+            t.nickname +
+            "\n" +
+            ahk +
+            '::\n  Clipboard := "' +
+            esc.substring(0, 300) +
+            '"\n  Send, ^v\n  return\n\n';
+        });
+
+        const blob = new Blob([out], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "TextVault-Shortcuts.txt";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showNotification("Shortcuts guide exported!");
+        }, 100);
+      }
+
+      // ── MODAL HELPERS ───────────────────────────────────────────────────────
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+      }
+
+      document
+        .getElementById("save-edit-btn")
+        .addEventListener("click", saveEdit);
+      document
+        .querySelectorAll(
+          "#edit-modal .close-btn, #edit-modal .cancel-edit-btn",
+        )
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            closeModal("edit-modal");
+          });
+        });
+      document
+        .getElementById("execute-replace-btn")
+        .addEventListener("click", executeReplace);
+      document
+        .querySelectorAll(
+          "#replace-modal .close-btn, #replace-modal .cancel-replace-btn",
+        )
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            closeModal("replace-modal");
+          });
+        });
+      window.addEventListener("click", function (e) {
+        if (e.target === document.getElementById("edit-modal"))
+          closeModal("edit-modal");
+        if (e.target === document.getElementById("replace-modal"))
+          closeModal("replace-modal");
+      });
+
+      // ── NOTIFICATION ────────────────────────────────────────────────────────
+      function showNotification(message, type) {
+        type = type || "success";
+        notificationText.textContent = message;
+        notification.className = "notification show " + type;
+        setTimeout(function () {
+          notification.className = "notification";
+        }, 3000);
+      }
+
+      // ── ESCAPE HTML ─────────────────────────────────────────────────────────
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // ── WIRE UP ─────────────────────────────────────────────────────────────
+      document.getElementById("save-btn").addEventListener("click", saveText);
+      document
+        .getElementById("backup-btn")
+        .addEventListener("click", backupToDrive);
+      document
+        .getElementById("restore-btn")
+        .addEventListener("click", restoreFromDrive);
+      document
+        .getElementById("export-shortcuts-btn")
+        .addEventListener("click", exportShortcutsGuide);
+      searchInput.addEventListener("input", displayTexts);
+      sortSelect.addEventListener("change", displayTexts);
+    </script>
+  </body>
+</html>
