@@ -114,20 +114,18 @@
         gap: 20px;
         position: sticky;
         top: 20px;
-        height: calc(100vh - 40px);
+        max-height: calc(100vh - 40px);
         overflow-y: auto;
-        overscroll-behavior: contain;
-        padding-right: 8px;
+        padding-right: 4px;
       }
       .main-content {
         flex: 2;
         min-width: 300px;
         position: sticky;
         top: 20px;
-        height: calc(100vh - 40px);
+        max-height: calc(100vh - 40px);
         overflow-y: auto;
-        overscroll-behavior: contain;
-        padding-right: 8px;
+        padding-right: 4px;
       }
       .form-section {
         background: var(--card-bg);
@@ -282,7 +280,7 @@
       .folders-bar {
         margin-bottom: 18px;
       }
-      .tags-label {
+      .folders-label {
         font-weight: 700;
         color: var(--secondary);
         font-size: 0.85rem;
@@ -293,7 +291,7 @@
         align-items: center;
         gap: 7px;
       }
-      .tag-chips {
+      .folder-chips {
         display: flex;
         flex-wrap: wrap;
         gap: 7px;
@@ -736,15 +734,13 @@
         .sidebar {
           position: static;
           max-width: 100%;
-          height: auto;
+          max-height: none;
           overflow: visible;
-          padding-right: 0;
         }
         .main-content {
           position: static;
-          height: auto;
+          max-height: none;
           overflow: visible;
-          padding-right: 0;
         }
         .section-header {
           flex-direction: column;
@@ -998,15 +994,6 @@
       [data-theme="dark"] .section-header h2 {
         color: #e4e6eb;
       }
-      [data-theme="dark"] .action-btn {
-        color: #e4e6eb;
-      }
-      [data-theme="dark"] .action-btn:hover {
-        background: #303647;
-      }
-      [data-theme="dark"] .pin-btn.pinned {
-        color: #f8d64e;
-      }
       [data-theme="dark"] .empty-state,
       [data-theme="dark"] .block-date,
       [data-theme="dark"] .hist-date {
@@ -1039,6 +1026,30 @@
         background: #2b2610;
         color: #e8d98a;
         border-color: #5a4d17;
+      }
+      [data-theme="dark"] .action-btn {
+        color: #cfd2dc;
+      }
+      [data-theme="dark"] .action-btn:hover {
+        background: #262a38;
+      }
+      [data-theme="dark"] .pin-btn.pinned {
+        color: #f1c40f;
+      }
+      [data-theme="dark"] .edit-btn:hover {
+        color: var(--accent);
+        background: rgba(72, 149, 239, 0.18);
+      }
+      [data-theme="dark"] .replace-btn:hover,
+      [data-theme="dark"] .history-btn:hover,
+      [data-theme="dark"] .restore-btn:hover {
+        color: #b085f5;
+        background: rgba(114, 9, 183, 0.22);
+      }
+      [data-theme="dark"] .delete-btn:hover,
+      [data-theme="dark"] .perm-delete-btn:hover {
+        color: #ff8a94;
+        background: rgba(230, 57, 70, 0.22);
       }
     </style>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -1084,8 +1095,8 @@
         <div class="doodle doodle-2">📝</div>
         <h1><i class="fas fa-lock"></i> Text Vault Pro</h1>
         <p class="subtitle">
-          Store, organize, and instantly copy your important texts — with
-          tags, shortcuts, and smart sorting
+          Store, organize, and instantly copy your important texts — with tags,
+          shortcuts, and smart sorting
         </p>
         <div class="doodle doodle-3">🔒</div>
         <div class="doodle doodle-4">💾</div>
@@ -1262,13 +1273,13 @@
             </div>
 
             <div class="tags-bar" id="tags-bar" style="display: none">
-              <div class="tags-label">
+              <div class="folders-label">
                 <i class="fas fa-tags"></i> Tags
                 <span style="font-weight: 400; text-transform: none"
                   >(click to filter, select multiple)</span
                 >
               </div>
-              <div class="tag-chips" id="tag-chips"></div>
+              <div class="folder-chips" id="tag-chips"></div>
             </div>
 
             <div class="text-blocks" id="text-blocks">
@@ -1314,24 +1325,24 @@
                 placeholder="e.g. work, urgent"
               />
             </div>
-            <div class="input-group" style="margin-bottom: 0">
-                <label><i class="fas fa-keyboard"></i> Shortcut</label>
-                <div class="shortcut-capture">
-                  <input
-                    type="text"
-                    id="edit-shortcut-input"
-                    placeholder="Click &amp; press keys..."
-                    readonly
-                    style="flex: 1"
-                  />
-                  <button
-                    class="btn btn-sm btn-danger"
-                    id="edit-clear-shortcut-btn"
-                    title="Clear"
-                  >
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+            <div class="input-group">
+              <label><i class="fas fa-keyboard"></i> Shortcut</label>
+              <div class="shortcut-capture">
+                <input
+                  type="text"
+                  id="edit-shortcut-input"
+                  placeholder="Click &amp; press keys..."
+                  readonly
+                  style="flex: 1"
+                />
+                <button
+                  class="btn btn-sm btn-danger"
+                  id="edit-clear-shortcut-btn"
+                  title="Clear"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -1519,6 +1530,7 @@
             });
 
             purgeOldTrash();
+            updateTrashCount();
             renderTagChips();
             displayTexts();
           })
@@ -1530,8 +1542,8 @@
       let currentEditIndex = null;
       let currentReplaceIndex = null;
       let currentHistoryIndex = null;
-      let activeTags = [];
       let viewMode = "active"; // 'active' | 'trash'
+      let activeTags = [];
       let captureTarget = null;
       const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
@@ -1624,6 +1636,12 @@
           .catch(function (e) {
             showNotification("Sync failed: " + e.message, "error");
           });
+      }
+
+      function updateTrashCount() {
+        trashCountEl.textContent = texts.filter(function (t) {
+          return t.deleted;
+        }).length;
       }
 
       // ── TAGS ─────────────────────────────────────────────────────────────────
@@ -1773,6 +1791,7 @@
         document.getElementById("shortcut-input").value = "";
         document.getElementById("tags-input").value = "";
         renderTagChips();
+        updateTrashCount();
         displayTexts();
         showNotification("Text saved successfully!");
       }
@@ -1788,7 +1807,7 @@
         withIdx = withIdx.filter(function (t) {
           const inTrash = viewMode === "trash";
           if (!!t.deleted !== inTrash) return false;
-          if (inTrash) return true; // no search/tag filtering in trash view
+          if (inTrash) return true; // no tag/search filtering in trash view
           const ms =
             fuzzyMatch(term, t.nickname) || fuzzyMatch(term, t.content);
           const mt = activeTags.every(function (tag) {
@@ -1830,7 +1849,6 @@
 
       // ── DISPLAY ─────────────────────────────────────────────────────────────
       function displayTexts() {
-        trashCountEl.textContent = texts.filter((t) => t.deleted).length;
         if (texts.length === 0) {
           textBlocksContainer.innerHTML =
             '<div class="empty-state"><i class="fas fa-inbox"></i><h3>Your Text Vault is Empty</h3><p>Start by adding your first text using the form on the left</p></div>';
@@ -2115,6 +2133,7 @@
           texts[index].deleted = true;
           texts[index].deletedAt = Date.now();
           persist();
+          updateTrashCount();
           renderTagChips();
           displayTexts();
           showNotification("Moved to Trash");
@@ -2125,6 +2144,7 @@
         texts[index].deleted = false;
         texts[index].deletedAt = null;
         persist();
+        updateTrashCount();
         renderTagChips();
         displayTexts();
         showNotification("Restored from Trash");
@@ -2140,6 +2160,7 @@
         ) {
           texts.splice(index, 1);
           persist();
+          updateTrashCount();
           displayTexts();
           showNotification("Permanently deleted");
         }
@@ -2249,11 +2270,7 @@
       }
 
       function restoreFromDrive() {
-        if (
-          !confirm(
-            "Restore will replace your current texts. Continue?",
-          )
-        )
+        if (!confirm("Restore will replace your current texts. Continue?"))
           return;
         const input = document.createElement("input");
         input.type = "file";
@@ -2271,7 +2288,7 @@
                 texts = parsed.texts || [];
               }
               texts = texts.map(function (t) {
-                const restoredText = Object.assign(
+                return Object.assign(
                   {
                     date: Date.now(),
                     shortcut: "",
@@ -2283,10 +2300,9 @@
                   },
                   t,
                 );
-                delete restoredText.folder;
-                return restoredText;
               });
               persist();
+              updateTrashCount();
               renderTagChips();
               displayTexts();
               showNotification("Backup restored successfully!");
