@@ -114,11 +114,20 @@
         gap: 20px;
         position: sticky;
         top: 20px;
-        height: fit-content;
+        height: calc(100vh - 40px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding-right: 8px;
       }
       .main-content {
         flex: 2;
         min-width: 300px;
+        position: sticky;
+        top: 20px;
+        height: calc(100vh - 40px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding-right: 8px;
       }
       .form-section {
         background: var(--card-bg);
@@ -273,7 +282,7 @@
       .folders-bar {
         margin-bottom: 18px;
       }
-      .folders-label {
+      .tags-label {
         font-weight: 700;
         color: var(--secondary);
         font-size: 0.85rem;
@@ -284,7 +293,7 @@
         align-items: center;
         gap: 7px;
       }
-      .folder-chips {
+      .tag-chips {
         display: flex;
         flex-wrap: wrap;
         gap: 7px;
@@ -727,6 +736,15 @@
         .sidebar {
           position: static;
           max-width: 100%;
+          height: auto;
+          overflow: visible;
+          padding-right: 0;
+        }
+        .main-content {
+          position: static;
+          height: auto;
+          overflow: visible;
+          padding-right: 0;
         }
         .section-header {
           flex-direction: column;
@@ -980,6 +998,15 @@
       [data-theme="dark"] .section-header h2 {
         color: #e4e6eb;
       }
+      [data-theme="dark"] .action-btn {
+        color: #e4e6eb;
+      }
+      [data-theme="dark"] .action-btn:hover {
+        background: #303647;
+      }
+      [data-theme="dark"] .pin-btn.pinned {
+        color: #f8d64e;
+      }
       [data-theme="dark"] .empty-state,
       [data-theme="dark"] .block-date,
       [data-theme="dark"] .hist-date {
@@ -1058,7 +1085,7 @@
         <h1><i class="fas fa-lock"></i> Text Vault Pro</h1>
         <p class="subtitle">
           Store, organize, and instantly copy your important texts — with
-          folders, shortcuts, and smart sorting
+          tags, shortcuts, and smart sorting
         </p>
         <div class="doodle doodle-3">🔒</div>
         <div class="doodle doodle-4">💾</div>
@@ -1088,17 +1115,6 @@
                 id="content"
                 placeholder="Paste your important text here..."
               ></textarea>
-            </div>
-            <div class="input-group">
-              <label for="folder-select"
-                ><i class="fas fa-folder"></i> Folder
-                <span style="font-weight: 400; font-size: 0.85em"
-                  >(optional)</span
-                ></label
-              >
-              <select id="folder-select">
-                <option value="">— No Folder —</option>
-              </select>
             </div>
             <div class="input-group">
               <label for="tags-input"
@@ -1145,39 +1161,6 @@
             <button id="save-btn" class="btn btn-primary">
               <i class="fas fa-save"></i> Save Text
             </button>
-          </div>
-
-          <!-- FOLDERS -->
-          <div class="form-section">
-            <div class="section-title">
-              <i class="fas fa-folder-plus"></i>
-              <h3>Manage Folders</h3>
-            </div>
-            <div style="display: flex; gap: 8px; margin-bottom: 12px">
-              <input
-                type="text"
-                id="new-folder-name"
-                placeholder="New folder name..."
-                style="flex: 1"
-              />
-              <button
-                class="btn btn-primary btn-sm"
-                id="create-folder-btn"
-                style="width: auto"
-              >
-                <i class="fas fa-plus"></i> Add
-              </button>
-            </div>
-            <div
-              id="folder-list-sidebar"
-              style="
-                display: flex;
-                flex-direction: column;
-                gap: 7px;
-                max-height: 200px;
-                overflow-y: auto;
-              "
-            ></div>
           </div>
 
           <!-- BACKUP -->
@@ -1278,21 +1261,14 @@
               </button>
             </div>
 
-            <div class="folders-bar" id="folders-bar" style="display: none">
-              <div class="folders-label">
-                <i class="fas fa-folder-open"></i> Folders
-              </div>
-              <div class="folder-chips" id="folder-chips"></div>
-            </div>
-
             <div class="tags-bar" id="tags-bar" style="display: none">
-              <div class="folders-label">
+              <div class="tags-label">
                 <i class="fas fa-tags"></i> Tags
                 <span style="font-weight: 400; text-transform: none"
                   >(click to filter, select multiple)</span
                 >
               </div>
-              <div class="folder-chips" id="tag-chips"></div>
+              <div class="tag-chips" id="tag-chips"></div>
             </div>
 
             <div class="text-blocks" id="text-blocks">
@@ -1338,15 +1314,7 @@
                 placeholder="e.g. work, urgent"
               />
             </div>
-            <div class="row-2">
-              <div class="input-group" style="margin-bottom: 0">
-                <label for="edit-folder"
-                  ><i class="fas fa-folder"></i> Folder</label
-                ><select id="edit-folder">
-                  <option value="">— No Folder —</option>
-                </select>
-              </div>
-              <div class="input-group" style="margin-bottom: 0">
+            <div class="input-group" style="margin-bottom: 0">
                 <label><i class="fas fa-keyboard"></i> Shortcut</label>
                 <div class="shortcut-capture">
                   <input
@@ -1364,7 +1332,6 @@
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
-              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -1527,7 +1494,6 @@
       });
 
       let texts = [];
-      let folders = [];
 
       function loadDataAndInit() {
         db.collection("vaults")
@@ -1536,14 +1502,12 @@
           .then(function (doc) {
             const data = doc.exists ? doc.data() : {};
             texts = data.texts || [];
-            folders = data.folders || [];
 
             // Migrate old entries
             texts = texts.map(function (t) {
               return {
                 nickname: t.nickname || "",
                 content: t.content || "",
-                folder: t.folder || "",
                 shortcut: t.shortcut || "",
                 date: t.date || Date.now(),
                 tags: t.tags || [],
@@ -1555,9 +1519,6 @@
             });
 
             purgeOldTrash();
-            renderFolderSelects();
-            renderFolderChips();
-            renderFolderSidebar();
             renderTagChips();
             displayTexts();
           })
@@ -1569,7 +1530,6 @@
       let currentEditIndex = null;
       let currentReplaceIndex = null;
       let currentHistoryIndex = null;
-      let activeFolder = "all";
       let activeTags = [];
       let viewMode = "active"; // 'active' | 'trash'
       let captureTarget = null;
@@ -1580,11 +1540,6 @@
       const notificationText = document.getElementById("notification-text");
       const searchInput = document.getElementById("search-text");
       const sortSelect = document.getElementById("sort-select");
-      const folderSelect = document.getElementById("folder-select");
-      const editFolderSelect = document.getElementById("edit-folder");
-      const foldersBar = document.getElementById("folders-bar");
-      const folderChips = document.getElementById("folder-chips");
-      const folderListSidebar = document.getElementById("folder-list-sidebar");
       const tagsBar = document.getElementById("tags-bar");
       const tagChipsContainer = document.getElementById("tag-chips");
       const trashCountEl = document.getElementById("trash-count");
@@ -1637,11 +1592,7 @@
           "btn " + (mode === "trash" ? "btn-primary" : "inactive");
         document.getElementById("controls-row").style.display =
           mode === "active" ? "" : "none";
-        foldersBar.style.display = mode === "active" ? "" : "none";
         tagsBar.style.display = mode === "active" ? "" : "none";
-        if (foldersBar.style.display === "" && folders.length === 0)
-          foldersBar.style.display = "none";
-        renderFolderChips();
         renderTagChips();
         displayTexts();
       }
@@ -1669,70 +1620,10 @@
         if (!currentUser) return;
         db.collection("vaults")
           .doc(currentUser.uid)
-          .set({ texts: texts, folders: folders })
+          .set({ texts: texts })
           .catch(function (e) {
             showNotification("Sync failed: " + e.message, "error");
           });
-      }
-
-      // ── FOLDERS ──────────────────────────────────────────────────────────────
-      function renderFolderSelects() {
-        [folderSelect, editFolderSelect].forEach((sel) => {
-          const val = sel.value;
-          sel.innerHTML = '<option value="">— No Folder —</option>';
-          folders.forEach((f) => {
-            const o = document.createElement("option");
-            o.value = f;
-            o.textContent = f;
-            sel.appendChild(o);
-          });
-          sel.value = val;
-        });
-      }
-
-      function renderFolderChips() {
-        const activeTexts = texts.filter((t) => !t.deleted);
-        trashCountEl.textContent = texts.filter((t) => t.deleted).length;
-
-        if (folders.length === 0 || viewMode !== "active") {
-          foldersBar.style.display = "none";
-        } else {
-          foldersBar.style.display = "";
-          folderChips.innerHTML = "";
-
-          const allChip = document.createElement("div");
-          allChip.className =
-            "folder-chip" + (activeFolder === "all" ? " active" : "");
-          allChip.innerHTML =
-            '<i class="fas fa-th-large"></i> All <span class="chip-count">' +
-            activeTexts.length +
-            "</span>";
-          allChip.addEventListener("click", () => {
-            activeFolder = "all";
-            renderFolderChips();
-            displayTexts();
-          });
-          folderChips.appendChild(allChip);
-
-          folders.forEach((f) => {
-            const count = activeTexts.filter((t) => t.folder === f).length;
-            const chip = document.createElement("div");
-            chip.className =
-              "folder-chip" + (activeFolder === f ? " active" : "");
-            chip.innerHTML =
-              '<i class="fas fa-folder"></i> ' +
-              escapeHtml(f) +
-              ' <span class="chip-count">' +
-              count +
-              "</span>";
-            chip.addEventListener("click", () => {
-              activeFolder = f;
-              renderFolderChips();
-              displayTexts();
-            });
-            folderChips.appendChild(chip);
-          });
-        }
       }
 
       // ── TAGS ─────────────────────────────────────────────────────────────────
@@ -1774,78 +1665,6 @@
           tagChipsContainer.appendChild(chip);
         });
       }
-
-      function renderFolderSidebar() {
-        folderListSidebar.innerHTML = "";
-        if (folders.length === 0) {
-          folderListSidebar.innerHTML =
-            '<div style="color:#adb5bd;font-size:0.85rem;text-align:center;padding:8px;">No folders yet</div>';
-          return;
-        }
-        folders.forEach((f, i) => {
-          const row = document.createElement("div");
-          row.className = "folder-manage-row";
-          row.innerHTML =
-            '<span><i class="fas fa-folder" style="color:var(--primary);margin-right:7px;"></i>' +
-            escapeHtml(f) +
-            "</span>" +
-            '<button class="btn btn-sm btn-danger" style="width:auto;" onclick="deleteFolder(' +
-            i +
-            ')"><i class="fas fa-trash"></i></button>';
-          folderListSidebar.appendChild(row);
-        });
-      }
-
-      function createFolder() {
-        const name = document.getElementById("new-folder-name").value.trim();
-        if (!name) {
-          showNotification("Enter a folder name!", "warning");
-          return;
-        }
-        if (folders.includes(name)) {
-          showNotification("Folder already exists!", "warning");
-          return;
-        }
-        folders.push(name);
-        persist();
-        document.getElementById("new-folder-name").value = "";
-        renderFolderSelects();
-        renderFolderChips();
-        renderFolderSidebar();
-        showNotification('Folder "' + name + '" created!');
-      }
-
-      function deleteFolder(i) {
-        const name = folders[i];
-        if (
-          !confirm(
-            'Delete folder "' +
-              name +
-              '"? Texts inside will become unfoldered.',
-          )
-        )
-          return;
-        texts = texts.map((t) =>
-          t.folder === name ? Object.assign({}, t, { folder: "" }) : t,
-        );
-        folders.splice(i, 1);
-        if (activeFolder === name) activeFolder = "all";
-        persist();
-        renderFolderSelects();
-        renderFolderChips();
-        renderFolderSidebar();
-        displayTexts();
-        showNotification('Folder "' + name + '" deleted');
-      }
-
-      document
-        .getElementById("create-folder-btn")
-        .addEventListener("click", createFolder);
-      document
-        .getElementById("new-folder-name")
-        .addEventListener("keydown", function (e) {
-          if (e.key === "Enter") createFolder();
-        });
 
       // ── SHORTCUT CAPTURE ────────────────────────────────────────────────────
       function formatShortcut(e) {
@@ -1913,7 +1732,6 @@
       function saveText() {
         const nickname = document.getElementById("nickname").value.trim();
         const content = document.getElementById("content").value.trim();
-        const folder = folderSelect.value;
         const shortcut = document.getElementById("shortcut-input").value.trim();
         const tags = parseTags(document.getElementById("tags-input").value);
 
@@ -1941,7 +1759,6 @@
         texts.push({
           nickname: nickname,
           content: content,
-          folder: folder,
           shortcut: shortcut,
           tags: tags,
           date: Date.now(),
@@ -1955,8 +1772,6 @@
         document.getElementById("content").value = "";
         document.getElementById("shortcut-input").value = "";
         document.getElementById("tags-input").value = "";
-        folderSelect.value = "";
-        renderFolderChips();
         renderTagChips();
         displayTexts();
         showNotification("Text saved successfully!");
@@ -1973,14 +1788,13 @@
         withIdx = withIdx.filter(function (t) {
           const inTrash = viewMode === "trash";
           if (!!t.deleted !== inTrash) return false;
-          if (inTrash) return true; // no folder/tag/search filtering in trash view
+          if (inTrash) return true; // no search/tag filtering in trash view
           const ms =
             fuzzyMatch(term, t.nickname) || fuzzyMatch(term, t.content);
-          const mf = activeFolder === "all" || t.folder === activeFolder;
           const mt = activeTags.every(function (tag) {
             return (t.tags || []).includes(tag);
           });
-          return ms && mf && mt;
+          return ms && mt;
         });
 
         if (viewMode === "trash") {
@@ -2016,6 +1830,7 @@
 
       // ── DISPLAY ─────────────────────────────────────────────────────────────
       function displayTexts() {
+        trashCountEl.textContent = texts.filter((t) => t.deleted).length;
         if (texts.length === 0) {
           textBlocksContainer.innerHTML =
             '<div class="empty-state"><i class="fas fa-inbox"></i><h3>Your Text Vault is Empty</h3><p>Start by adding your first text using the form on the left</p></div>';
@@ -2025,7 +1840,7 @@
         const items = getFilteredSorted();
         if (items.length === 0) {
           textBlocksContainer.innerHTML =
-            '<div class="empty-state"><i class="fas fa-search"></i><h3>No Matching Texts Found</h3><p>Try a different search term or folder</p></div>';
+            '<div class="empty-state"><i class="fas fa-search"></i><h3>No Matching Texts Found</h3><p>Try a different search term or tag</p></div>';
           return;
         }
 
@@ -2044,11 +1859,6 @@
             "en-IN",
             { day: "numeric", month: "short", year: "numeric" },
           );
-          const folderTag = text.folder
-            ? '<span class="block-folder-tag"><i class="fas fa-folder"></i> ' +
-              escapeHtml(text.folder) +
-              "</span>"
-            : "";
           const shortcutTag = text.shortcut
             ? '<span class="block-shortcut-tag"><i class="fas fa-keyboard"></i> ' +
               escapeHtml(text.shortcut) +
@@ -2140,7 +1950,6 @@
             "</div>" +
             '<div class="block-meta">' +
             pinnedTag +
-            folderTag +
             shortcutTag +
             tagTags +
             "</div>" +
@@ -2207,9 +2016,6 @@
         ).join(", ");
         document.getElementById("edit-shortcut-input").value =
           texts[index].shortcut || "";
-        renderFolderSelects();
-        document.getElementById("edit-folder").value =
-          texts[index].folder || "";
         document.getElementById("edit-modal").style.display = "flex";
       }
 
@@ -2229,7 +2035,6 @@
         if (currentEditIndex === null) return;
         const nn = document.getElementById("edit-nickname").value.trim();
         const nc = document.getElementById("edit-content").value.trim();
-        const nf = document.getElementById("edit-folder").value;
         const ns = document.getElementById("edit-shortcut-input").value.trim();
         const nt = parseTags(document.getElementById("edit-tags").value);
         if (!nn || !nc) {
@@ -2259,13 +2064,11 @@
         texts[currentEditIndex] = Object.assign({}, texts[currentEditIndex], {
           nickname: nn,
           content: nc,
-          folder: nf,
           shortcut: ns,
           tags: nt,
         });
         persist();
         closeModal("edit-modal");
-        renderFolderChips();
         renderTagChips();
         displayTexts();
         showNotification("Text updated successfully!");
@@ -2312,7 +2115,6 @@
           texts[index].deleted = true;
           texts[index].deletedAt = Date.now();
           persist();
-          renderFolderChips();
           renderTagChips();
           displayTexts();
           showNotification("Moved to Trash");
@@ -2323,7 +2125,6 @@
         texts[index].deleted = false;
         texts[index].deletedAt = null;
         persist();
-        renderFolderChips();
         renderTagChips();
         displayTexts();
         showNotification("Restored from Trash");
@@ -2339,7 +2140,6 @@
         ) {
           texts.splice(index, 1);
           persist();
-          renderFolderChips();
           displayTexts();
           showNotification("Permanently deleted");
         }
@@ -2428,7 +2228,7 @@
 
       // ── BACKUP / RESTORE ────────────────────────────────────────────────────
       function backupToDrive() {
-        const data = JSON.stringify({ texts: texts, folders: folders });
+        const data = JSON.stringify({ texts: texts });
         const blob = new Blob([data], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -2451,7 +2251,7 @@
       function restoreFromDrive() {
         if (
           !confirm(
-            "Restore will replace your current texts and folders. Continue?",
+            "Restore will replace your current texts. Continue?",
           )
         )
           return;
@@ -2467,16 +2267,13 @@
               const parsed = JSON.parse(ev.target.result);
               if (Array.isArray(parsed)) {
                 texts = parsed;
-                folders = [];
               } else {
                 texts = parsed.texts || [];
-                folders = parsed.folders || [];
               }
               texts = texts.map(function (t) {
-                return Object.assign(
+                const restoredText = Object.assign(
                   {
                     date: Date.now(),
-                    folder: "",
                     shortcut: "",
                     tags: [],
                     pinned: false,
@@ -2486,11 +2283,11 @@
                   },
                   t,
                 );
+                delete restoredText.folder;
+                return restoredText;
               });
               persist();
-              renderFolderSelects();
-              renderFolderChips();
-              renderFolderSidebar();
+              renderTagChips();
               displayTexts();
               showNotification("Backup restored successfully!");
             } catch (err) {
