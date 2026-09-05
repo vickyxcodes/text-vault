@@ -803,6 +803,216 @@
         padding: 8px 14px;
         font-size: 12px;
       }
+      #dark-toggle-btn {
+        position: absolute;
+        top: 18px;
+        right: 130px;
+        width: auto;
+        padding: 8px 14px;
+        font-size: 12px;
+      }
+      #trash-toggle-btn {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        width: auto;
+        padding: 8px 14px;
+        font-size: 12px;
+      }
+
+      /* ── PIN / FAVORITE ── */
+      .pin-btn.pinned {
+        color: #f1c40f;
+      }
+      .pin-btn.pinned:hover {
+        background: rgba(241, 196, 15, 0.15);
+      }
+      .text-block.is-pinned {
+        border-color: #f1c40f;
+      }
+      .pinned-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #fff8e1;
+        border: 1px solid #ffe082;
+        border-radius: 10px;
+        padding: 2px 9px;
+        font-size: 10px;
+        font-weight: 600;
+        color: #a3790a;
+      }
+
+      /* ── TAGS ── */
+      .block-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #eefaf0;
+        border: 1px solid #b7e4c7;
+        border-radius: 10px;
+        padding: 2px 9px;
+        font-size: 10px;
+        font-weight: 600;
+        color: #1b7a3e;
+      }
+      .tags-bar {
+        margin-bottom: 18px;
+      }
+      .tag-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #eefaf0;
+        border: 2px solid #b7e4c7;
+        border-radius: 20px;
+        padding: 5px 13px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #1b7a3e;
+      }
+      .tag-chip:hover,
+      .tag-chip.active {
+        background: #2b9348;
+        color: white;
+        border-color: #2b9348;
+      }
+
+      /* ── VIEW TOGGLE (Active/Trash) ── */
+      .view-toggle {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .view-toggle button {
+        width: auto;
+        padding: 8px 16px;
+      }
+      .view-toggle button.inactive {
+        background: #e9ecef;
+        color: #495057;
+      }
+      .view-toggle button.inactive:hover {
+        background: #dee2e6;
+      }
+
+      /* ── HISTORY MODAL ── */
+      .history-item {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-left: 3px solid var(--accent);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+      }
+      .history-item .hist-date {
+        font-size: 11px;
+        color: #6c757d;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+      .history-item .hist-preview {
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        white-space: pre-wrap;
+        max-height: 80px;
+        overflow: hidden;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+      .history-item .btn {
+        width: auto;
+        padding: 7px 14px;
+        font-size: 12px;
+      }
+
+      /* ── DARK MODE ── */
+      [data-theme="dark"] body {
+        background: linear-gradient(135deg, #0f1117, #161a24);
+        color: #e4e6eb;
+      }
+      [data-theme="dark"] .form-section,
+      [data-theme="dark"] .content-section,
+      [data-theme="dark"] .text-block,
+      [data-theme="dark"] .modal-content,
+      [data-theme="dark"] #auth-box {
+        background: #1c1f2b;
+        color: #e4e6eb;
+        border-color: #2c303e;
+      }
+      [data-theme="dark"] input,
+      [data-theme="dark"] textarea,
+      [data-theme="dark"] select {
+        background: #262a38;
+        color: #e4e6eb;
+        border-color: #3a3f52;
+      }
+      [data-theme="dark"] input:focus,
+      [data-theme="dark"] textarea:focus,
+      [data-theme="dark"] select:focus {
+        background: #2c3040;
+      }
+      [data-theme="dark"] .preview,
+      [data-theme="dark"] .text-preview,
+      [data-theme="dark"] .replace-row,
+      [data-theme="dark"] .preview-container,
+      [data-theme="dark"] .guide-box,
+      [data-theme="dark"] .folder-manage-row,
+      [data-theme="dark"] .history-item {
+        background: #262a38;
+        color: #cfd2dc;
+        border-color: #3a3f52;
+      }
+      [data-theme="dark"] .preview::after {
+        background: linear-gradient(to bottom, transparent, #1c1f2b);
+      }
+      [data-theme="dark"] .block-header,
+      [data-theme="dark"] .modal-footer {
+        border-color: #2c303e;
+      }
+      [data-theme="dark"] .modal-footer {
+        background: #20232e;
+      }
+      [data-theme="dark"] .block-title,
+      [data-theme="dark"] label,
+      [data-theme="dark"] .section-header h2 {
+        color: #e4e6eb;
+      }
+      [data-theme="dark"] .empty-state,
+      [data-theme="dark"] .block-date,
+      [data-theme="dark"] .hist-date {
+        color: #8a8f9c;
+      }
+      [data-theme="dark"] .folder-chip,
+      [data-theme="dark"] .block-folder-tag {
+        background: #262a38;
+        border-color: #3a3f52;
+        color: #c7d2fe;
+      }
+      [data-theme="dark"] .tag-chip,
+      [data-theme="dark"] .block-tag {
+        background: #1e2e22;
+        border-color: #2d5738;
+        color: #7ee2a0;
+      }
+      [data-theme="dark"] .view-toggle button.inactive {
+        background: #262a38;
+        color: #cfd2dc;
+      }
+      [data-theme="dark"] footer {
+        background: rgba(28, 31, 43, 0.7);
+        color: #8a8f9c;
+      }
+      [data-theme="dark"] .subtitle {
+        color: #a9b0c3;
+      }
+      [data-theme="dark"] .shortcut-note {
+        background: #2b2610;
+        color: #e8d98a;
+        border-color: #5a4d17;
+      }
     </style>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -834,6 +1044,14 @@
       <header style="position: relative">
         <button id="logout-btn" class="btn btn-danger">
           <i class="fas fa-sign-out-alt"></i> Log Out
+        </button>
+        <button id="dark-toggle-btn" class="btn btn-info">
+          <i class="fas fa-moon"></i>
+          <span id="dark-toggle-label">Dark Mode</span>
+        </button>
+        <button id="trash-toggle-btn" class="btn btn-info">
+          <i class="fas fa-trash"></i>
+          <span id="trash-toggle-label">Trash</span>
         </button>
         <div class="doodle doodle-1">📋</div>
         <div class="doodle doodle-2">📝</div>
@@ -881,6 +1099,19 @@
               <select id="folder-select">
                 <option value="">— No Folder —</option>
               </select>
+            </div>
+            <div class="input-group">
+              <label for="tags-input"
+                ><i class="fas fa-tags"></i> Tags
+                <span style="font-weight: 400; font-size: 0.85em"
+                  >(optional, comma-separated e.g. work, urgent)</span
+                ></label
+              >
+              <input
+                type="text"
+                id="tags-input"
+                placeholder="e.g. work, urgent"
+              />
             </div>
             <div class="input-group" style="margin-bottom: 8px">
               <label
@@ -1019,7 +1250,7 @@
           <div class="content-section">
             <div class="section-header">
               <h2><i class="fas fa-sticky-note"></i> Saved Texts</h2>
-              <div class="controls-row">
+              <div class="controls-row" id="controls-row">
                 <input
                   type="text"
                   id="search-text"
@@ -1036,11 +1267,32 @@
               </div>
             </div>
 
+            <div class="view-toggle">
+              <button id="view-active-btn" class="btn btn-primary">
+                <i class="fas fa-inbox"></i> Active
+              </button>
+              <button id="view-trash-btn" class="btn inactive">
+                <i class="fas fa-trash"></i> Trash (<span id="trash-count"
+                  >0</span
+                >)
+              </button>
+            </div>
+
             <div class="folders-bar" id="folders-bar" style="display: none">
               <div class="folders-label">
                 <i class="fas fa-folder-open"></i> Folders
               </div>
               <div class="folder-chips" id="folder-chips"></div>
+            </div>
+
+            <div class="tags-bar" id="tags-bar" style="display: none">
+              <div class="folders-label">
+                <i class="fas fa-tags"></i> Tags
+                <span style="font-weight: 400; text-transform: none"
+                  >(click to filter, select multiple)</span
+                >
+              </div>
+              <div class="folder-chips" id="tag-chips"></div>
             </div>
 
             <div class="text-blocks" id="text-blocks">
@@ -1073,6 +1325,18 @@
               <label for="edit-content"
                 ><i class="fas fa-align-left"></i> Content</label
               ><textarea id="edit-content" rows="6"></textarea>
+            </div>
+            <div class="input-group">
+              <label for="edit-tags"
+                ><i class="fas fa-tags"></i> Tags
+                <span style="font-weight: 400; font-size: 0.85em"
+                  >(comma-separated)</span
+                ></label
+              ><input
+                type="text"
+                id="edit-tags"
+                placeholder="e.g. work, urgent"
+              />
             </div>
             <div class="row-2">
               <div class="input-group" style="margin-bottom: 0">
@@ -1163,6 +1427,22 @@
         </div>
       </div>
 
+      <!-- HISTORY MODAL -->
+      <div class="modal" id="history-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-history"></i> Version History</h3>
+            <button class="close-btn">&times;</button>
+          </div>
+          <div class="modal-body" id="history-body"></div>
+          <div class="modal-footer">
+            <button class="btn btn-danger cancel-history-btn">
+              <i class="fas fa-times"></i> Close
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div class="notification" id="notification">
         <i class="fas fa-check-circle"></i
         ><span id="notification-text">Done!</span>
@@ -1183,6 +1463,11 @@
     <!-- /#app-root -->
 
     <script>
+      // ── DARK MODE (applied immediately, device-level preference) ───────────
+      if (localStorage.getItem("tv-dark") === "1") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+
       // ── FIREBASE SETUP ──────────────────────────────────────────────────────
       // PASTE YOUR OWN CONFIG HERE (from Firebase Console > Project Settings)
       const firebaseConfig = {
@@ -1261,12 +1546,19 @@
                 folder: t.folder || "",
                 shortcut: t.shortcut || "",
                 date: t.date || Date.now(),
+                tags: t.tags || [],
+                pinned: t.pinned || false,
+                deleted: t.deleted || false,
+                deletedAt: t.deletedAt || null,
+                history: t.history || [],
               };
             });
 
+            purgeOldTrash();
             renderFolderSelects();
             renderFolderChips();
             renderFolderSidebar();
+            renderTagChips();
             displayTexts();
           })
           .catch(function (e) {
@@ -1276,8 +1568,12 @@
 
       let currentEditIndex = null;
       let currentReplaceIndex = null;
+      let currentHistoryIndex = null;
       let activeFolder = "all";
+      let activeTags = [];
+      let viewMode = "active"; // 'active' | 'trash'
       let captureTarget = null;
+      const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
       const textBlocksContainer = document.getElementById("text-blocks");
       const notification = document.getElementById("notification");
@@ -1289,6 +1585,85 @@
       const foldersBar = document.getElementById("folders-bar");
       const folderChips = document.getElementById("folder-chips");
       const folderListSidebar = document.getElementById("folder-list-sidebar");
+      const tagsBar = document.getElementById("tags-bar");
+      const tagChipsContainer = document.getElementById("tag-chips");
+      const trashCountEl = document.getElementById("trash-count");
+      const viewActiveBtn = document.getElementById("view-active-btn");
+      const viewTrashBtn = document.getElementById("view-trash-btn");
+
+      // ── TRASH PURGE (auto-delete items in trash for 30+ days) ───────────────
+      function purgeOldTrash() {
+        const before = texts.length;
+        texts = texts.filter(function (t) {
+          return !(
+            t.deleted &&
+            t.deletedAt &&
+            Date.now() - t.deletedAt > THIRTY_DAYS_MS
+          );
+        });
+        if (texts.length !== before) persist();
+      }
+
+      // ── DARK MODE TOGGLE ─────────────────────────────────────────────────────
+      function applyDarkLabel() {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        document.getElementById("dark-toggle-label").textContent = isDark
+          ? "Light Mode"
+          : "Dark Mode";
+      }
+      document
+        .getElementById("dark-toggle-btn")
+        .addEventListener("click", function () {
+          const isDark =
+            document.documentElement.getAttribute("data-theme") === "dark";
+          if (isDark) {
+            document.documentElement.removeAttribute("data-theme");
+            localStorage.setItem("tv-dark", "0");
+          } else {
+            document.documentElement.setAttribute("data-theme", "dark");
+            localStorage.setItem("tv-dark", "1");
+          }
+          applyDarkLabel();
+        });
+      applyDarkLabel();
+
+      // ── VIEW TOGGLE (Active / Trash) ─────────────────────────────────────────
+      function setViewMode(mode) {
+        viewMode = mode;
+        viewActiveBtn.className =
+          "btn " + (mode === "active" ? "btn-primary" : "inactive");
+        viewTrashBtn.className =
+          "btn " + (mode === "trash" ? "btn-primary" : "inactive");
+        document.getElementById("controls-row").style.display =
+          mode === "active" ? "" : "none";
+        foldersBar.style.display = mode === "active" ? "" : "none";
+        tagsBar.style.display = mode === "active" ? "" : "none";
+        if (foldersBar.style.display === "" && folders.length === 0)
+          foldersBar.style.display = "none";
+        renderFolderChips();
+        renderTagChips();
+        displayTexts();
+      }
+      viewActiveBtn.addEventListener("click", function () {
+        setViewMode("active");
+      });
+      viewTrashBtn.addEventListener("click", function () {
+        setViewMode("trash");
+      });
+
+      // ── FUZZY SEARCH (substring match + typo-tolerant subsequence match) ────
+      function fuzzyMatch(term, text) {
+        if (!term) return true;
+        term = term.toLowerCase();
+        text = text.toLowerCase();
+        if (text.includes(term)) return true;
+        let ti = 0;
+        for (let i = 0; i < text.length && ti < term.length; i++) {
+          if (text[i] === term[ti]) ti++;
+        }
+        return ti === term.length;
+      }
 
       function persist() {
         if (!currentUser) return;
@@ -1316,44 +1691,87 @@
       }
 
       function renderFolderChips() {
-        if (folders.length === 0) {
+        const activeTexts = texts.filter((t) => !t.deleted);
+        trashCountEl.textContent = texts.filter((t) => t.deleted).length;
+
+        if (folders.length === 0 || viewMode !== "active") {
           foldersBar.style.display = "none";
-          return;
-        }
-        foldersBar.style.display = "";
-        folderChips.innerHTML = "";
+        } else {
+          foldersBar.style.display = "";
+          folderChips.innerHTML = "";
 
-        const allChip = document.createElement("div");
-        allChip.className =
-          "folder-chip" + (activeFolder === "all" ? " active" : "");
-        allChip.innerHTML =
-          '<i class="fas fa-th-large"></i> All <span class="chip-count">' +
-          texts.length +
-          "</span>";
-        allChip.addEventListener("click", () => {
-          activeFolder = "all";
-          renderFolderChips();
-          displayTexts();
-        });
-        folderChips.appendChild(allChip);
-
-        folders.forEach((f) => {
-          const count = texts.filter((t) => t.folder === f).length;
-          const chip = document.createElement("div");
-          chip.className =
-            "folder-chip" + (activeFolder === f ? " active" : "");
-          chip.innerHTML =
-            '<i class="fas fa-folder"></i> ' +
-            escapeHtml(f) +
-            ' <span class="chip-count">' +
-            count +
+          const allChip = document.createElement("div");
+          allChip.className =
+            "folder-chip" + (activeFolder === "all" ? " active" : "");
+          allChip.innerHTML =
+            '<i class="fas fa-th-large"></i> All <span class="chip-count">' +
+            activeTexts.length +
             "</span>";
-          chip.addEventListener("click", () => {
-            activeFolder = f;
+          allChip.addEventListener("click", () => {
+            activeFolder = "all";
             renderFolderChips();
             displayTexts();
           });
-          folderChips.appendChild(chip);
+          folderChips.appendChild(allChip);
+
+          folders.forEach((f) => {
+            const count = activeTexts.filter((t) => t.folder === f).length;
+            const chip = document.createElement("div");
+            chip.className =
+              "folder-chip" + (activeFolder === f ? " active" : "");
+            chip.innerHTML =
+              '<i class="fas fa-folder"></i> ' +
+              escapeHtml(f) +
+              ' <span class="chip-count">' +
+              count +
+              "</span>";
+            chip.addEventListener("click", () => {
+              activeFolder = f;
+              renderFolderChips();
+              displayTexts();
+            });
+            folderChips.appendChild(chip);
+          });
+        }
+      }
+
+      // ── TAGS ─────────────────────────────────────────────────────────────────
+      function parseTags(str) {
+        return (str || "")
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+      }
+
+      function getAllTags() {
+        const set = new Set();
+        texts
+          .filter((t) => !t.deleted)
+          .forEach((t) => (t.tags || []).forEach((tag) => set.add(tag)));
+        return Array.from(set).sort();
+      }
+
+      function renderTagChips() {
+        const allTags = getAllTags();
+        if (allTags.length === 0 || viewMode !== "active") {
+          tagsBar.style.display = "none";
+          return;
+        }
+        tagsBar.style.display = "";
+        tagChipsContainer.innerHTML = "";
+        allTags.forEach((tag) => {
+          const chip = document.createElement("div");
+          chip.className =
+            "tag-chip" + (activeTags.includes(tag) ? " active" : "");
+          chip.innerHTML = '<i class="fas fa-tag"></i> ' + escapeHtml(tag);
+          chip.addEventListener("click", () => {
+            if (activeTags.includes(tag))
+              activeTags = activeTags.filter((t) => t !== tag);
+            else activeTags.push(tag);
+            renderTagChips();
+            displayTexts();
+          });
+          tagChipsContainer.appendChild(chip);
         });
       }
 
@@ -1497,6 +1915,7 @@
         const content = document.getElementById("content").value.trim();
         const folder = folderSelect.value;
         const shortcut = document.getElementById("shortcut-input").value.trim();
+        const tags = parseTags(document.getElementById("tags-input").value);
 
         if (!nickname || !content) {
           showNotification("Please fill both fields!", "warning");
@@ -1504,7 +1923,7 @@
         }
         if (shortcut) {
           const conflict = texts.find(function (t) {
-            return t.shortcut === shortcut;
+            return t.shortcut === shortcut && !t.deleted;
           });
           if (conflict) {
             showNotification(
@@ -1524,32 +1943,53 @@
           content: content,
           folder: folder,
           shortcut: shortcut,
+          tags: tags,
           date: Date.now(),
+          pinned: false,
+          deleted: false,
+          deletedAt: null,
+          history: [],
         });
         persist();
         document.getElementById("nickname").value = "";
         document.getElementById("content").value = "";
         document.getElementById("shortcut-input").value = "";
+        document.getElementById("tags-input").value = "";
         folderSelect.value = "";
         renderFolderChips();
+        renderTagChips();
         displayTexts();
         showNotification("Text saved successfully!");
       }
 
       // ── SORT / FILTER ───────────────────────────────────────────────────────
       function getFilteredSorted() {
-        const term = searchInput.value.toLowerCase();
+        const term = searchInput.value.trim();
         const sortBy = sortSelect.value;
         let withIdx = texts.map(function (t, i) {
           return Object.assign({}, t, { _i: i });
         });
+
         withIdx = withIdx.filter(function (t) {
+          const inTrash = viewMode === "trash";
+          if (!!t.deleted !== inTrash) return false;
+          if (inTrash) return true; // no folder/tag/search filtering in trash view
           const ms =
-            t.nickname.toLowerCase().includes(term) ||
-            t.content.toLowerCase().includes(term);
+            fuzzyMatch(term, t.nickname) || fuzzyMatch(term, t.content);
           const mf = activeFolder === "all" || t.folder === activeFolder;
-          return ms && mf;
+          const mt = activeTags.every(function (tag) {
+            return (t.tags || []).includes(tag);
+          });
+          return ms && mf && mt;
         });
+
+        if (viewMode === "trash") {
+          withIdx.sort(function (a, b) {
+            return (b.deletedAt || 0) - (a.deletedAt || 0);
+          });
+          return withIdx;
+        }
+
         withIdx.sort(function (a, b) {
           switch (sortBy) {
             case "newest":
@@ -1566,6 +2006,10 @@
               return a.content.length - b.content.length;
           }
           return 0;
+        });
+        // Pinned items always float to the top, regardless of sort order
+        withIdx.sort(function (a, b) {
+          return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
         });
         return withIdx;
       }
@@ -1584,6 +2028,8 @@
             '<div class="empty-state"><i class="fas fa-search"></i><h3>No Matching Texts Found</h3><p>Try a different search term or folder</p></div>';
           return;
         }
+
+        const inTrash = viewMode === "trash";
 
         items.forEach(function (text) {
           const idx = text._i;
@@ -1608,9 +2054,84 @@
               escapeHtml(text.shortcut) +
               "</span>"
             : "";
+          const pinnedTag =
+            text.pinned && !inTrash
+              ? '<span class="pinned-tag"><i class="fas fa-star"></i> Pinned</span>'
+              : "";
+          const tagTags = (text.tags || [])
+            .map(function (tag) {
+              return (
+                '<span class="block-tag"><i class="fas fa-tag"></i> ' +
+                escapeHtml(tag) +
+                "</span>"
+              );
+            })
+            .join("");
 
           const block = document.createElement("div");
-          block.className = "text-block";
+          block.className =
+            "text-block" + (text.pinned && !inTrash ? " is-pinned" : "");
+
+          let actionsHtml, footerHtml, dateLine;
+          if (inTrash) {
+            const daysLeft = Math.max(
+              0,
+              30 -
+                Math.floor(
+                  (Date.now() - (text.deletedAt || Date.now())) / 86400000,
+                ),
+            );
+            dateLine =
+              '<div class="block-date"><i class="fas fa-trash" style="margin-right:3px;"></i>Deleted ' +
+              dateStr +
+              " — auto-removed in " +
+              daysLeft +
+              " day" +
+              (daysLeft === 1 ? "" : "s") +
+              "</div>";
+            actionsHtml =
+              '<div class="block-actions">' +
+              '<button class="action-btn restore-btn" data-index="' +
+              idx +
+              '" title="Restore"><i class="fas fa-trash-restore"></i></button>' +
+              '<button class="action-btn perm-delete-btn" data-index="' +
+              idx +
+              '" title="Delete Forever"><i class="fas fa-times-circle"></i></button>' +
+              "</div>";
+            footerHtml = "";
+          } else {
+            dateLine =
+              '<div class="block-date"><i class="fas fa-clock" style="margin-right:3px;"></i>' +
+              dateStr +
+              "</div>";
+            actionsHtml =
+              '<div class="block-actions">' +
+              '<button class="action-btn pin-btn' +
+              (text.pinned ? " pinned" : "") +
+              '" data-index="' +
+              idx +
+              '" title="' +
+              (text.pinned ? "Unpin" : "Pin to top") +
+              '"><i class="fas fa-star"></i></button>' +
+              '<button class="action-btn history-btn" data-index="' +
+              idx +
+              '" title="Version History"><i class="fas fa-history"></i></button>' +
+              '<button class="action-btn edit-btn"    data-index="' +
+              idx +
+              '" title="Edit"><i class="fas fa-edit"></i></button>' +
+              '<button class="action-btn replace-btn" data-index="' +
+              idx +
+              '" title="Replace Text"><i class="fas fa-exchange-alt"></i></button>' +
+              '<button class="action-btn delete-btn"  data-index="' +
+              idx +
+              '" title="Move to Trash"><i class="fas fa-trash"></i></button>' +
+              "</div>";
+            footerHtml =
+              '<div class="block-footer"><button class="btn copy-btn" data-index="' +
+              idx +
+              '"><i class="fas fa-copy"></i> Copy Text</button></div>';
+          }
+
           block.innerHTML =
             '<div class="block-header">' +
             '<div class="block-title-area">' +
@@ -1618,31 +2139,19 @@
             escapeHtml(text.nickname) +
             "</div>" +
             '<div class="block-meta">' +
+            pinnedTag +
             folderTag +
             shortcutTag +
+            tagTags +
             "</div>" +
-            '<div class="block-date"><i class="fas fa-clock" style="margin-right:3px;"></i>' +
-            dateStr +
+            dateLine +
             "</div>" +
-            "</div>" +
-            '<div class="block-actions">' +
-            '<button class="action-btn edit-btn"    data-index="' +
-            idx +
-            '" title="Edit"><i class="fas fa-edit"></i></button>' +
-            '<button class="action-btn replace-btn" data-index="' +
-            idx +
-            '" title="Replace Text"><i class="fas fa-exchange-alt"></i></button>' +
-            '<button class="action-btn delete-btn"  data-index="' +
-            idx +
-            '" title="Delete"><i class="fas fa-trash"></i></button>' +
-            "</div>" +
+            actionsHtml +
             "</div>" +
             '<div class="block-content"><div class="preview">' +
             escapeHtml(preview) +
             "</div></div>" +
-            '<div class="block-footer"><button class="btn copy-btn" data-index="' +
-            idx +
-            '"><i class="fas fa-copy"></i> Copy Text</button></div>';
+            footerHtml;
           textBlocksContainer.appendChild(block);
         });
 
@@ -1666,6 +2175,26 @@
             copyText(+this.dataset.index);
           });
         });
+        document.querySelectorAll(".pin-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            togglePin(+this.dataset.index);
+          });
+        });
+        document.querySelectorAll(".history-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            openHistoryModal(+this.dataset.index);
+          });
+        });
+        document.querySelectorAll(".restore-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            restoreText(+this.dataset.index);
+          });
+        });
+        document.querySelectorAll(".perm-delete-btn").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            permanentDeleteText(+this.dataset.index);
+          });
+        });
       }
 
       // ── EDIT ────────────────────────────────────────────────────────────────
@@ -1673,6 +2202,9 @@
         currentEditIndex = index;
         document.getElementById("edit-nickname").value = texts[index].nickname;
         document.getElementById("edit-content").value = texts[index].content;
+        document.getElementById("edit-tags").value = (
+          texts[index].tags || []
+        ).join(", ");
         document.getElementById("edit-shortcut-input").value =
           texts[index].shortcut || "";
         renderFolderSelects();
@@ -1681,12 +2213,25 @@
         document.getElementById("edit-modal").style.display = "flex";
       }
 
+      // Snapshot the current nickname/content into history before it gets overwritten
+      function pushHistory(index) {
+        const t = texts[index];
+        if (!t.history) t.history = [];
+        t.history.unshift({
+          nickname: t.nickname,
+          content: t.content,
+          date: Date.now(),
+        });
+        if (t.history.length > 15) t.history = t.history.slice(0, 15);
+      }
+
       function saveEdit() {
         if (currentEditIndex === null) return;
         const nn = document.getElementById("edit-nickname").value.trim();
         const nc = document.getElementById("edit-content").value.trim();
         const nf = document.getElementById("edit-folder").value;
         const ns = document.getElementById("edit-shortcut-input").value.trim();
+        const nt = parseTags(document.getElementById("edit-tags").value);
         if (!nn || !nc) {
           showNotification("Both fields are required!", "warning");
           return;
@@ -1707,15 +2252,21 @@
             return;
           }
         }
+        const changed =
+          nn !== texts[currentEditIndex].nickname ||
+          nc !== texts[currentEditIndex].content;
+        if (changed) pushHistory(currentEditIndex);
         texts[currentEditIndex] = Object.assign({}, texts[currentEditIndex], {
           nickname: nn,
           content: nc,
           folder: nf,
           shortcut: ns,
+          tags: nt,
         });
         persist();
         closeModal("edit-modal");
         renderFolderChips();
+        renderTagChips();
         displayTexts();
         showNotification("Text updated successfully!");
       }
@@ -1738,6 +2289,7 @@
           showNotification("Please enter text to replace!", "warning");
           return;
         }
+        pushHistory(currentReplaceIndex);
         const escaped = rt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         texts[currentReplaceIndex].content = texts[
           currentReplaceIndex
@@ -1748,20 +2300,130 @@
         showNotification("Text replaced successfully!");
       }
 
-      // ── DELETE / COPY ───────────────────────────────────────────────────────
+      // ── DELETE (soft) / RESTORE / PERMANENT DELETE / COPY ───────────────────
       function deleteText(index) {
-        if (confirm('Delete "' + texts[index].nickname + '"?')) {
+        if (
+          confirm(
+            'Move "' +
+              texts[index].nickname +
+              '" to Trash? You can restore it within 30 days.',
+          )
+        ) {
+          texts[index].deleted = true;
+          texts[index].deletedAt = Date.now();
+          persist();
+          renderFolderChips();
+          renderTagChips();
+          displayTexts();
+          showNotification("Moved to Trash");
+        }
+      }
+
+      function restoreText(index) {
+        texts[index].deleted = false;
+        texts[index].deletedAt = null;
+        persist();
+        renderFolderChips();
+        renderTagChips();
+        displayTexts();
+        showNotification("Restored from Trash");
+      }
+
+      function permanentDeleteText(index) {
+        if (
+          confirm(
+            'Permanently delete "' +
+              texts[index].nickname +
+              '"? This cannot be undone.',
+          )
+        ) {
           texts.splice(index, 1);
           persist();
           renderFolderChips();
           displayTexts();
-          showNotification("Text deleted");
+          showNotification("Permanently deleted");
         }
+      }
+
+      function togglePin(index) {
+        texts[index].pinned = !texts[index].pinned;
+        persist();
+        displayTexts();
+        showNotification(texts[index].pinned ? "Pinned to top!" : "Unpinned");
       }
 
       function copyText(index) {
         navigator.clipboard.writeText(texts[index].content);
         showNotification('Copied "' + texts[index].nickname + '"!');
+      }
+
+      // ── VERSION HISTORY MODAL ────────────────────────────────────────────────
+      function openHistoryModal(index) {
+        currentHistoryIndex = index;
+        const t = texts[index];
+        const body = document.getElementById("history-body");
+        if (!t.history || t.history.length === 0) {
+          body.innerHTML =
+            '<div class="empty-state"><i class="fas fa-history"></i><h3>No Previous Versions</h3><p>Version history appears here once you edit or replace text in this entry.</p></div>';
+        } else {
+          body.innerHTML = t.history
+            .map(function (h, hi) {
+              const d = new Date(h.date).toLocaleString("en-IN", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+              const preview =
+                h.content.length > 200
+                  ? h.content.substring(0, 200) + "..."
+                  : h.content;
+              return (
+                '<div class="history-item">' +
+                '<div class="hist-date"><i class="fas fa-clock"></i> ' +
+                d +
+                ' — "' +
+                escapeHtml(h.nickname) +
+                '"</div>' +
+                '<div class="hist-preview">' +
+                escapeHtml(preview) +
+                "</div>" +
+                '<button class="btn btn-info restore-version-btn" data-hi="' +
+                hi +
+                '"><i class="fas fa-undo"></i> Restore This Version</button>' +
+                "</div>"
+              );
+            })
+            .join("");
+          document
+            .querySelectorAll(".restore-version-btn")
+            .forEach(function (btn) {
+              btn.addEventListener("click", function () {
+                restoreHistoryVersion(+this.dataset.hi);
+              });
+            });
+        }
+        document.getElementById("history-modal").style.display = "flex";
+      }
+
+      function restoreHistoryVersion(hi) {
+        if (currentHistoryIndex === null) return;
+        if (
+          !confirm(
+            "Restore this version? Your current content will be saved to history first.",
+          )
+        )
+          return;
+        const t = texts[currentHistoryIndex];
+        const version = t.history[hi];
+        pushHistory(currentHistoryIndex);
+        t.nickname = version.nickname;
+        t.content = version.content;
+        persist();
+        closeModal("history-modal");
+        displayTexts();
+        showNotification("Version restored!");
       }
 
       // ── BACKUP / RESTORE ────────────────────────────────────────────────────
@@ -1812,7 +2474,16 @@
               }
               texts = texts.map(function (t) {
                 return Object.assign(
-                  { date: Date.now(), folder: "", shortcut: "" },
+                  {
+                    date: Date.now(),
+                    folder: "",
+                    shortcut: "",
+                    tags: [],
+                    pinned: false,
+                    deleted: false,
+                    deletedAt: null,
+                    history: [],
+                  },
                   t,
                 );
               });
@@ -1922,11 +2593,22 @@
             closeModal("replace-modal");
           });
         });
+      document
+        .querySelectorAll(
+          "#history-modal .close-btn, #history-modal .cancel-history-btn",
+        )
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            closeModal("history-modal");
+          });
+        });
       window.addEventListener("click", function (e) {
         if (e.target === document.getElementById("edit-modal"))
           closeModal("edit-modal");
         if (e.target === document.getElementById("replace-modal"))
           closeModal("replace-modal");
+        if (e.target === document.getElementById("history-modal"))
+          closeModal("history-modal");
       });
 
       // ── NOTIFICATION ────────────────────────────────────────────────────────
