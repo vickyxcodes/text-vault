@@ -1051,6 +1051,116 @@
         color: #ff8a94;
         background: rgba(230, 57, 70, 0.22);
       }
+
+      /* ── REFINED APP LAYOUT ── */
+      :root {
+        --primary: #5b5ce2;
+        --secondary: #25254a;
+        --accent: #746ee9;
+        --success: #19a974;
+        --danger: #e05263;
+        --warning: #d97706;
+        --info: #4f46e5;
+        --background: #f5f6fb;
+        --card-bg: #ffffff;
+        --surface-muted: #f7f7fc;
+        --border: #e6e7f0;
+        --text-muted: #686a82;
+      }
+      html { background: var(--background); }
+      body {
+        background: radial-gradient(circle at 4% 0%, #e9eaff 0, transparent 27%),
+          radial-gradient(circle at 100% 15%, #e5f6f0 0, transparent 22%), var(--background);
+        color: #292a3d;
+        padding: 18px;
+        overflow-y: auto;
+      }
+      .container { display: block; max-width: 1240px; }
+      .main-content { position: static; max-height: none; overflow: visible; padding: 0; width: 100%; }
+      header { max-width: 1240px; margin: 0 auto 18px; padding: 22px 180px; }
+      h1 { color: var(--secondary); text-shadow: none; font-size: 2.35rem; }
+      .subtitle { color: var(--text-muted); }
+      .content-section, .form-section {
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(35, 37, 75, 0.06);
+      }
+      .content-section { padding: 26px; }
+      .form-section { padding: 24px; }
+      .form-section:hover { box-shadow: 0 12px 30px rgba(35, 37, 75, 0.06); }
+      .section-title { color: var(--secondary); border-bottom-color: #e5e5fa; }
+      .section-header h2 { color: var(--secondary); }
+      input, textarea, select {
+        background: var(--surface-muted);
+        border-color: #dddeea;
+        color: #292a3d;
+        border-radius: 10px;
+      }
+      input:focus, textarea:focus, select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(91, 92, 226, 0.13);
+      }
+      .btn { background: var(--accent); border-radius: 10px; }
+      .btn:hover { background: var(--primary); box-shadow: 0 7px 16px rgba(91, 92, 226, 0.2); }
+      .btn-primary { background: var(--primary); }
+      .btn-success { background: var(--success); }
+      .btn-danger { background: var(--danger); }
+      .btn-info { background: #6668dd; }
+      #add-text-btn, #trash-toggle-btn, #dark-toggle-btn, #logout-btn { width: auto; padding: 9px 14px; }
+      #add-text-btn { position: absolute; top: 18px; left: 18px; }
+      #trash-toggle-btn { left: 138px; }
+      .text-blocks { gap: 16px; }
+      .text-block {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(35, 37, 75, 0.045);
+      }
+      .text-block:hover { border-color: #bcbcf3; box-shadow: 0 10px 22px rgba(35, 37, 75, 0.09); }
+      /* Keep each nickname on its own full-width row instead of competing with action icons. */
+      .block-header { flex-wrap: wrap; }
+      .block-title-area { flex: 1 1 100%; }
+      .block-actions { margin-left: auto; }
+      .block-title { color: var(--secondary); }
+      .preview, .guide-box, .replace-row, .preview-container, .folder-manage-row { background: var(--surface-muted); }
+      .folder-chip, .block-folder-tag { background: #f0f0ff; border-color: #d6d6fa; color: #4c4db1; }
+      .tag-chip { background: #f0faf5; border-color: #bce8d2; color: #16724c; }
+      .tag-chip:hover, .tag-chip.active { background: #19724e; border-color: #19724e; }
+      .tag-chip.active { box-shadow: 0 0 0 3px rgba(25, 114, 78, 0.16); }
+      .all-tags-btn { background: #f2f2f8; border-color: #dedee9; color: #55566c; }
+      .all-tags-btn:hover, .all-tags-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
+      .tag-pin-btn {
+        border: 0; background: transparent; color: #bbbdd0; cursor: pointer; padding: 0 0 0 3px;
+        font-size: 10px; line-height: 1; transition: color .2s, transform .2s;
+      }
+      .tag-pin-btn:hover { color: #d79b12; transform: scale(1.15); }
+      .tag-pin-btn.pinned { color: #d79b12; }
+      .pinned-tag { background: #fff8e8; border-color: #f3d88c; color: #976d05; }
+      .settings-area { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
+      .settings-area .form-section { height: 100%; }
+      .settings-area p { color: var(--text-muted) !important; }
+      .modal-content { border-radius: 16px; }
+      .modal-header { background: var(--secondary); }
+      .modal-body { scrollbar-color: #c4c5d7 transparent; }
+      [data-theme="dark"] body, [data-theme="dark"] #auth-overlay { background: radial-gradient(circle at 4% 0%, #252450 0, transparent 28%), #151621; color: #e8e8f1; }
+      [data-theme="dark"] .content-section, [data-theme="dark"] .form-section, [data-theme="dark"] .text-block, [data-theme="dark"] .modal-content, [data-theme="dark"] #auth-box { background: #20212f; border-color: #343548; }
+      [data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select, [data-theme="dark"] .preview, [data-theme="dark"] .guide-box, [data-theme="dark"] .replace-row, [data-theme="dark"] .preview-container { background: #292a3a; border-color: #44455a; color: #eef0f7; }
+      [data-theme="dark"] h1, [data-theme="dark"] .section-title, [data-theme="dark"] .section-header h2, [data-theme="dark"] .block-title, [data-theme="dark"] label { color: #f0f0f8; }
+      [data-theme="dark"] .subtitle, [data-theme="dark"] .settings-area p { color: #b7b8cb !important; }
+      [data-theme="dark"] .all-tags-btn { background: #2b2c3c; border-color: #45465a; color: #d6d7e4; }
+      [data-theme="dark"] .tag-chip { background: #20372d; border-color: #386348; color: #9ee4bd; }
+      [data-theme="dark"] .tag-chip.active { background: #258458; border-color: #258458; }
+      @media (max-width: 768px) {
+        body { padding: 10px; }
+        header { padding: 74px 10px 12px; }
+        h1 { font-size: 1.9rem; }
+        #logout-btn { right: 10px; top: 12px; }
+        #dark-toggle-btn { right: 112px; top: 12px; }
+        #add-text-btn, #trash-toggle-btn { top: 12px; }
+        #add-text-btn { left: 10px; }
+        #trash-toggle-btn { left: 126px; }
+        .content-section { padding: 18px; }
+        .settings-area { grid-template-columns: 1fr; }
+      }
     </style>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -1087,6 +1197,9 @@
           <i class="fas fa-moon"></i>
           <span id="dark-toggle-label">Dark Mode</span>
         </button>
+        <button id="add-text-btn" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Add Text
+        </button>
         <button id="trash-toggle-btn" class="btn btn-info">
           <i class="fas fa-trash"></i>
           <span id="trash-toggle-label">Trash</span>
@@ -1103,142 +1216,6 @@
       </header>
 
       <div class="container">
-        <div class="sidebar">
-          <!-- ADD TEXT -->
-          <div class="form-section">
-            <div class="section-title">
-              <i class="fas fa-plus-circle"></i>
-              <h3>Add New Text</h3>
-            </div>
-            <div class="input-group">
-              <label for="nickname"><i class="fas fa-tag"></i> Nickname</label>
-              <input
-                type="text"
-                id="nickname"
-                placeholder="e.g., WiFi Password, Email Signature"
-              />
-            </div>
-            <div class="input-group">
-              <label for="content"
-                ><i class="fas fa-align-left"></i> Your Text</label
-              >
-              <textarea
-                id="content"
-                placeholder="Paste your important text here..."
-              ></textarea>
-            </div>
-            <div class="input-group">
-              <label for="tags-input"
-                ><i class="fas fa-tags"></i> Tags
-                <span style="font-weight: 400; font-size: 0.85em"
-                  >(optional, comma-separated e.g. work, urgent)</span
-                ></label
-              >
-              <input
-                type="text"
-                id="tags-input"
-                placeholder="e.g. work, urgent"
-              />
-            </div>
-            <div class="input-group" style="margin-bottom: 8px">
-              <label
-                ><i class="fas fa-keyboard"></i> Shortcut Key
-                <span style="font-weight: 400; font-size: 0.85em"
-                  >(optional)</span
-                ></label
-              >
-              <div class="shortcut-capture">
-                <input
-                  type="text"
-                  id="shortcut-input"
-                  placeholder="Click here, then press keys..."
-                  readonly
-                />
-                <button
-                  class="btn btn-sm btn-danger"
-                  id="clear-shortcut-btn"
-                  title="Clear shortcut"
-                >
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-              <div class="shortcut-note">
-                <strong>⌨️ Shortcut works on this page</strong>
-                Press your shortcut while this tab is open &amp; focused on a
-                non-input area to auto-copy. See <em>Global Shortcuts</em> below
-                for system-wide use.
-              </div>
-            </div>
-            <button id="save-btn" class="btn btn-primary">
-              <i class="fas fa-save"></i> Save Text
-            </button>
-          </div>
-
-          <!-- BACKUP -->
-          <div class="form-section">
-            <div class="section-title">
-              <i class="fas fa-cloud-upload-alt"></i>
-              <h3>Backup &amp; Restore</h3>
-            </div>
-            <p
-              style="
-                margin-bottom: 14px;
-                color: #495057;
-                line-height: 1.6;
-                font-size: 0.9rem;
-              "
-            >
-              Download a backup and save it anywhere safe (Google Drive, USB,
-              etc).
-            </p>
-            <button
-              id="backup-btn"
-              class="btn btn-success"
-              style="margin-bottom: 10px"
-            >
-              <i class="fab fa-google-drive cloud-icon"></i> Backup to Drive
-            </button>
-            <button id="restore-btn" class="btn btn-info">
-              <i class="fas fa-file-import"></i> Restore from Backup
-            </button>
-          </div>
-
-          <!-- GLOBAL SHORTCUTS GUIDE -->
-          <div class="form-section">
-            <div class="section-title">
-              <i class="fas fa-globe"></i>
-              <h3>Global Shortcuts</h3>
-            </div>
-            <p
-              style="
-                color: #495057;
-                font-size: 0.88rem;
-                line-height: 1.6;
-                margin-bottom: 12px;
-              "
-            >
-              To use shortcuts <strong>anywhere on your PC</strong>, use one of
-              these free tools:
-            </p>
-            <div class="guide-box" style="border-left-color: #0078d4">
-              <strong>🪟 Windows — AutoHotkey</strong>Download free from
-              <em>autohotkey.com</em>. Export your shortcuts guide below and
-              follow the included AHK script.
-            </div>
-            <div class="guide-box" style="border-left-color: #0ea5e9">
-              <strong>🍎 Mac — Raycast or Espanso</strong>Both support text
-              snippets with trigger keys. Free and easy.
-            </div>
-            <div class="guide-box" style="border-left-color: var(--info)">
-              <strong>🐧 Linux — Espanso</strong>Cross-platform text expander at
-              <em>espanso.org</em>.
-            </div>
-            <button id="export-shortcuts-btn" class="btn btn-primary">
-              <i class="fas fa-download"></i> Export Shortcuts &amp; AHK Script
-            </button>
-          </div>
-        </div>
-
         <!-- MAIN CONTENT -->
         <div class="main-content">
           <div class="content-section">
@@ -1287,10 +1264,66 @@
                 <i class="fas fa-inbox"></i>
                 <h3>Your Text Vault is Empty</h3>
                 <p>
-                  Start by adding your first text using the form on the left
+                  Start by adding your first text with the Add Text button
                 </p>
               </div>
             </div>
+          </div>
+          <div class="settings-area">
+            <section class="form-section">
+              <div class="section-title"><i class="fas fa-cloud-upload-alt"></i><h3>Backup &amp; Restore</h3></div>
+              <p style="margin-bottom: 14px; line-height: 1.6; font-size: 0.9rem">
+                Download a backup and save it somewhere safe, or restore a previous backup.
+              </p>
+              <div class="backup-controls">
+                <button id="backup-btn" class="btn btn-success"><i class="fas fa-download"></i> Download Backup</button>
+                <button id="restore-btn" class="btn btn-info"><i class="fas fa-file-import"></i> Restore Backup</button>
+              </div>
+            </section>
+            <section class="form-section">
+              <div class="section-title"><i class="fas fa-globe"></i><h3>Global Shortcuts</h3></div>
+              <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px">
+                For shortcuts anywhere on your computer, use AutoHotkey on Windows, or Raycast/Espanso on Mac and Linux.
+              </p>
+              <div class="guide-box"><strong>Export your shortcut guide</strong>It includes your assigned keys and an AutoHotkey script for Windows.</div>
+              <button id="export-shortcuts-btn" class="btn btn-primary"><i class="fas fa-download"></i> Export Shortcuts &amp; AHK Script</button>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD TEXT MODAL -->
+      <div class="modal" id="add-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3><i class="fas fa-plus-circle"></i> Add New Text</h3>
+            <button class="close-btn">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group">
+              <label for="nickname"><i class="fas fa-tag"></i> Nickname</label>
+              <input type="text" id="nickname" placeholder="e.g., WiFi Password, Email Signature" />
+            </div>
+            <div class="input-group">
+              <label for="content"><i class="fas fa-align-left"></i> Your Text</label>
+              <textarea id="content" placeholder="Paste your important text here..."></textarea>
+            </div>
+            <div class="input-group">
+              <label for="tags-input"><i class="fas fa-tags"></i> Tags <span style="font-weight: 400; font-size: 0.85em">(optional, comma-separated)</span></label>
+              <input type="text" id="tags-input" placeholder="e.g. work, urgent" />
+            </div>
+            <div class="input-group" style="margin-bottom: 8px">
+              <label><i class="fas fa-keyboard"></i> Shortcut Key <span style="font-weight: 400; font-size: 0.85em">(optional)</span></label>
+              <div class="shortcut-capture">
+                <input type="text" id="shortcut-input" placeholder="Click here, then press keys..." readonly />
+                <button class="btn btn-sm btn-danger" id="clear-shortcut-btn" title="Clear shortcut"><i class="fas fa-times"></i></button>
+              </div>
+              <div class="shortcut-note"><strong>⌨️ Shortcut works on this page</strong>Press your shortcut while this tab is focused outside an input to auto-copy this text.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger cancel-add-btn"><i class="fas fa-times"></i> Cancel</button>
+            <button id="save-btn" class="btn btn-success"><i class="fas fa-save"></i> Save Text</button>
           </div>
         </div>
       </div>
@@ -1522,7 +1555,13 @@
                 shortcut: t.shortcut || "",
                 date: t.date || Date.now(),
                 tags: t.tags || [],
-                pinned: t.pinned || false,
+                // Older backups stored one global pin. Migrate it to every
+                // tag on that text so pins now remain independently scoped.
+                pinnedTags: Array.isArray(t.pinnedTags)
+                  ? t.pinnedTags
+                  : t.pinned
+                    ? t.tags || []
+                    : [],
                 deleted: t.deleted || false,
                 deletedAt: t.deletedAt || null,
                 history: t.history || [],
@@ -1614,6 +1653,15 @@
       viewTrashBtn.addEventListener("click", function () {
         setViewMode("trash");
       });
+      document
+        .getElementById("trash-toggle-btn")
+        .addEventListener("click", function () {
+          setViewMode("trash");
+          document.querySelector(".main-content").scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
 
       // ── FUZZY SEARCH (substring match + typo-tolerant subsequence match) ────
       function fuzzyMatch(term, text) {
@@ -1668,8 +1716,20 @@
         }
         tagsBar.style.display = "";
         tagChipsContainer.innerHTML = "";
+        const allChip = document.createElement("button");
+        allChip.type = "button";
+        allChip.className =
+          "tag-chip all-tags-btn" + (activeTags.length === 0 ? " active" : "");
+        allChip.innerHTML = '<i class="fas fa-layer-group"></i> All texts';
+        allChip.addEventListener("click", function () {
+          activeTags = [];
+          renderTagChips();
+          displayTexts();
+        });
+        tagChipsContainer.appendChild(allChip);
         allTags.forEach((tag) => {
-          const chip = document.createElement("div");
+          const chip = document.createElement("button");
+          chip.type = "button";
           chip.className =
             "tag-chip" + (activeTags.includes(tag) ? " active" : "");
           chip.innerHTML = '<i class="fas fa-tag"></i> ' + escapeHtml(tag);
@@ -1780,7 +1840,7 @@
           shortcut: shortcut,
           tags: tags,
           date: Date.now(),
-          pinned: false,
+          pinnedTags: [],
           deleted: false,
           deletedAt: null,
           history: [],
@@ -1793,6 +1853,7 @@
         renderTagChips();
         updateTrashCount();
         displayTexts();
+        closeModal("add-modal");
         showNotification("Text saved successfully!");
       }
 
@@ -1840,10 +1901,17 @@
           }
           return 0;
         });
-        // Pinned items always float to the top, regardless of sort order
-        withIdx.sort(function (a, b) {
-          return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
-        });
+        // A pin only applies within the selected tag(s), never globally.
+        if (activeTags.length) {
+          withIdx.sort(function (a, b) {
+            const score = function (t) {
+              return activeTags.filter(function (tag) {
+                return (t.pinnedTags || []).includes(tag);
+              }).length;
+            };
+            return score(b) - score(a);
+          });
+        }
         return withIdx;
       }
 
@@ -1851,7 +1919,7 @@
       function displayTexts() {
         if (texts.length === 0) {
           textBlocksContainer.innerHTML =
-            '<div class="empty-state"><i class="fas fa-inbox"></i><h3>Your Text Vault is Empty</h3><p>Start by adding your first text using the form on the left</p></div>';
+            '<div class="empty-state"><i class="fas fa-inbox"></i><h3>Your Text Vault is Empty</h3><p>Start by adding your first text with the Add Text button.</p></div>';
           return;
         }
         textBlocksContainer.innerHTML = "";
@@ -1882,15 +1950,31 @@
               escapeHtml(text.shortcut) +
               "</span>"
             : "";
+          const pinnedFor = (text.pinnedTags || []).filter(function (tag) {
+            return (text.tags || []).includes(tag);
+          });
           const pinnedTag =
-            text.pinned && !inTrash
-              ? '<span class="pinned-tag"><i class="fas fa-star"></i> Pinned</span>'
+            pinnedFor.length && !inTrash
+              ? '<span class="pinned-tag"><i class="fas fa-star"></i> Pinned in ' +
+                escapeHtml(pinnedFor.join(", ")) +
+                "</span>"
               : "";
           const tagTags = (text.tags || [])
             .map(function (tag) {
+              const isPinned = (text.pinnedTags || []).includes(tag);
               return (
                 '<span class="block-tag"><i class="fas fa-tag"></i> ' +
                 escapeHtml(tag) +
+                '<button class="tag-pin-btn' +
+                (isPinned ? " pinned" : "") +
+                '" data-index="' +
+                idx +
+                '" data-tag="' +
+                escapeHtml(tag) +
+                '" title="' +
+                (isPinned ? "Unpin from " : "Pin in ") +
+                escapeHtml(tag) +
+                '"><i class="fas fa-star"></i></button>' +
                 "</span>"
               );
             })
@@ -1898,7 +1982,7 @@
 
           const block = document.createElement("div");
           block.className =
-            "text-block" + (text.pinned && !inTrash ? " is-pinned" : "");
+            "text-block" + (pinnedFor.length && !inTrash ? " is-pinned" : "");
 
           let actionsHtml, footerHtml, dateLine;
           if (inTrash) {
@@ -1934,13 +2018,6 @@
               "</div>";
             actionsHtml =
               '<div class="block-actions">' +
-              '<button class="action-btn pin-btn' +
-              (text.pinned ? " pinned" : "") +
-              '" data-index="' +
-              idx +
-              '" title="' +
-              (text.pinned ? "Unpin" : "Pin to top") +
-              '"><i class="fas fa-star"></i></button>' +
               '<button class="action-btn history-btn" data-index="' +
               idx +
               '" title="Version History"><i class="fas fa-history"></i></button>' +
@@ -2002,9 +2079,9 @@
             copyText(+this.dataset.index);
           });
         });
-        document.querySelectorAll(".pin-btn").forEach(function (btn) {
+        document.querySelectorAll(".tag-pin-btn").forEach(function (btn) {
           btn.addEventListener("click", function () {
-            togglePin(+this.dataset.index);
+            toggleTagPin(+this.dataset.index, this.dataset.tag);
           });
         });
         document.querySelectorAll(".history-btn").forEach(function (btn) {
@@ -2084,6 +2161,9 @@
           content: nc,
           shortcut: ns,
           tags: nt,
+          pinnedTags: (texts[currentEditIndex].pinnedTags || []).filter(
+            function (tag) { return nt.includes(tag); },
+          ),
         });
         persist();
         closeModal("edit-modal");
@@ -2166,11 +2246,17 @@
         }
       }
 
-      function togglePin(index) {
-        texts[index].pinned = !texts[index].pinned;
+      function toggleTagPin(index, tag) {
+        const pins = texts[index].pinnedTags || [];
+        const isPinned = pins.includes(tag);
+        texts[index].pinnedTags = isPinned
+          ? pins.filter(function (pinnedTag) { return pinnedTag !== tag; })
+          : pins.concat(tag);
         persist();
         displayTexts();
-        showNotification(texts[index].pinned ? "Pinned to top!" : "Unpinned");
+        showNotification(
+          isPinned ? 'Unpinned from "' + tag + '"' : 'Pinned in "' + tag + '"',
+        );
       }
 
       function copyText(index) {
@@ -2288,18 +2374,16 @@
                 texts = parsed.texts || [];
               }
               texts = texts.map(function (t) {
-                return Object.assign(
-                  {
-                    date: Date.now(),
-                    shortcut: "",
-                    tags: [],
-                    pinned: false,
-                    deleted: false,
-                    deletedAt: null,
-                    history: [],
-                  },
+                const restored = Object.assign(
+                  { date: Date.now(), shortcut: "", tags: [], deleted: false, deletedAt: null, history: [] },
                   t,
                 );
+                restored.pinnedTags = Array.isArray(t.pinnedTags)
+                  ? t.pinnedTags
+                  : t.pinned
+                    ? restored.tags || []
+                    : [];
+                return restored;
               });
               persist();
               updateTrashCount();
@@ -2416,6 +2500,8 @@
           });
         });
       window.addEventListener("click", function (e) {
+        if (e.target === document.getElementById("add-modal"))
+          closeModal("add-modal");
         if (e.target === document.getElementById("edit-modal"))
           closeModal("edit-modal");
         if (e.target === document.getElementById("replace-modal"))
@@ -2446,6 +2532,21 @@
 
       // ── WIRE UP ─────────────────────────────────────────────────────────────
       document.getElementById("save-btn").addEventListener("click", saveText);
+      document
+        .getElementById("add-text-btn")
+        .addEventListener("click", function () {
+          document.getElementById("add-modal").style.display = "flex";
+          setTimeout(function () {
+            document.getElementById("nickname").focus();
+          }, 0);
+        });
+      document
+        .querySelectorAll("#add-modal .close-btn, #add-modal .cancel-add-btn")
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            closeModal("add-modal");
+          });
+        });
       document
         .getElementById("backup-btn")
         .addEventListener("click", backupToDrive);
